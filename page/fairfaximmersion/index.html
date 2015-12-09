@@ -1,4 +1,4 @@
-<html lang="en">
+﻿<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Planned United States Foreign Assistance</title>
@@ -120,8 +120,8 @@
     </style>
 </head>
 <body>
-    <h1>Fairfax County</h1>
-    <h3>Immersion Schools</h3>
+    <h1>US Foreign Assistance</h1>
+    <h3></h3>
     
     <script type="text/javascript">
             var svg;
@@ -129,6 +129,7 @@
  
             queue()
                 .defer(d3.json, 'world_topo.json')
+                .defer(d3.json, 'School_Regions_topo.json')
                 .await(setupMap);
 
             var width = 1400;
@@ -136,21 +137,34 @@
 
             var barHeight = 210;
             var barWidth = 200;
-
-            var projection = d3.geo.mercator()
-                        .translate([(width / 2) - 65, (height / 2) + 100])
-                        .scale([width / 5]);
-
-            var path = d3.geo.path()
-                        .projection(projection);
-
     
             var margin = { top: 4, right: 6, bottom: 16, left: -5 };
 
-            function setupMap(error, world) {
-                data.forEach(function (d) {
-                    d.amount = +d.amount/1000000;
-                });
+            function setupMap(error, world, counties) {
+                //data.forEach(function (d) {
+                //    d.amount = +d.amount/1000000;
+                //});
+
+                // http://stackoverflow.com/questions/14492284/center-a-map-in-d3-given-a-geojson-object
+                var counties = topojson.feature(counties, counties.objects.School_Regions);
+
+                var projection = d3.geo.albers()
+                    .scale(1)
+                    .translate([0, 0]);
+
+                // Create a path generator.
+                var path = d3.geo.path()
+                    .projection(projection);
+
+                // Compute the bounds of a feature of interest, then derive scale & translate.
+                var b = path.bounds(counties),
+                    s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+                    t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+
+                // Update the projection to use computed scale & translate.
+                projection
+                    .scale(s)
+                    .translate(t);
 
                 svg = d3.select("body")
                     .append("svg")
@@ -162,13 +176,14 @@
                     .attr('class', 'boundary');
 
                 map = all.selectAll('path')
-                    .data(countries.features)
+                    .data(counties.features)
                     .enter()
                     .append('path')
                     .attr('d', path)
                     .attr("stroke", "dimgray")
                     .style("fill", function (d) {
-                        return d.value ? color(d.value) : defaultColor;
+                        //return d.value ? color(d.value) : defaultColor;
+                        return "green";
                     })
                     .style("fill-opacity", function (d) {
                         return d.value ? 0.5 : 1.0;
@@ -176,17 +191,17 @@
                     .style('fill-opacity', 0.5)
                     .on('mouseover', function (d) {
 
-                        d3.select(this).style('fill-opacity', 1)
-                            .attr("stroke", "black")
-                            .attr("stroke-width", 2);
+                        //d3.select(this).style('fill-opacity', 1)
+                        //    .attr("stroke", "black")
+                        //    .attr("stroke-width", 2);
 
-                        d3.select("#countrytooltip")
-                            .style("left", (d3.event.pageX + 15) + "px")
-                            .style("top", (d3.event.pageY - 10) + "px")
-                            .select("#country")
-                            .text("Hello");
+                        //d3.select("#countrytooltip")
+                        //    .style("left", (d3.event.pageX + 15) + "px")
+                        //    .style("top", (d3.event.pageY - 10) + "px")
+                        //    .select("#country")
+                        //    .text("Hello");
 
-                        d3.select("#countrytooltip").classed("hidden", false);
+                        //d3.select("#countrytooltip").classed("hidden", false);
                     })
                     .on('mouseout', function (d) {
                         d3.select(this)
