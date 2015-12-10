@@ -108,6 +108,16 @@
             shape-rendering: crispEdges;
         }
 
+        .label {
+			  font-weight: bold;
+			  font-size: 10px;
+			  width: 60px;
+			  text-anchor: middle;
+			  cursor: default;
+			  background: #ffffff;
+			}
+
+
         .axis text {
             font-family: sans-serif;
             font-size: 10px;
@@ -128,9 +138,10 @@
             var map;
  
             queue()
-                .defer(d3.json, 'School_Regions_topo.json')
-                .defer(d3.json, 'School_Facilities_topo.json')
-                .defer(d3.json, 'Supervisor_Districts_topo.json')
+                .defer(d3.json, '../../map/School_Regions_topo.json')
+                .defer(d3.json, '../../map/School_Facilities_topo.json')
+                .defer(d3.json, '../../map/Supervisor_Districts_topo.json')
+                .defer(d3.csv, '../../data/districts.csv')
                 .await(setupMap);
 
             var width = 1200;
@@ -138,12 +149,14 @@
             
             var margin = { top: 4, right: 6, bottom: 16, left: -5 };
 
-            function setupMap(error, regions, facilities, districts) {
+            function setupMap(error, regions, facilities, districts, districtData) {
 
                 // Convert TopoJSON to GeoJSON 
                 var regions = topojson.feature(regions, regions.objects.School_Regions);
                 var facilities = topojson.feature(facilities, facilities.objects.School_Facilities);
                 var districts = topojson.feature(districts, districts.objects.Supervisor_Districts);
+
+                districts.features.forEach(function (d) { console.log(d.properties) });
 
                 path = makePathGenerator(districts);
 
@@ -172,7 +185,7 @@
                     .style('fill-opacity', 0.5)
                     .on('mouseover', function (d) {
 
-                        d3.select(this).style('fill-opacity', 1)
+                        d3.select(this).style('fill-opacity', .6)
                             .attr("stroke", "black")
                             .attr("stroke-width", 2);
 
@@ -192,6 +205,19 @@
 
                         d3.select("#countrytooltip").classed("hidden", true);
                     });
+
+                    var label = svg.selectAll("text")
+					    .data(districts.features)
+					    .enter()
+					    .append("text")
+					        .attr("class", "label")
+					        .attr("transform", function (d) {
+					            var centroid = path.centroid(d);
+					            centroid[0] = centroid[0] - 40;
+					            centroid[1] = centroid[1] + 10;
+					            return "translate(" + centroid + ")";
+					        })
+					        .text(function (d) { return d.properties.DISTRICT; });
             }
     
 
