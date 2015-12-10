@@ -1,11 +1,11 @@
 ﻿<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Planned United States Foreign Assistance</title>
+    <title>Fairfax Country Immersion Schools</title>
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://d3js.org/topojson.v1.min.js"></script>
     <script src="http://d3js.org/queue.v1.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.7/crossfilter.js"></script>
+    <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.7/crossfilter.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.5.0/d3-legend.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
 
@@ -120,7 +120,7 @@
     </style>
 </head>
 <body>
-    <h1>US Foreign Assistance</h1>
+    <h1>Fairfax County Immersion Schools</h1>
     <h3></h3>
     
     <script type="text/javascript">
@@ -128,30 +128,21 @@
             var map;
  
             queue()
-                .defer(d3.json, 'world_topo.json')
                 .defer(d3.json, 'School_Regions_topo.json')
                 .defer(d3.json, 'School_Facilities_topo.json')
                 .defer(d3.json, 'Supervisor_Districts_topo.json')
                 .await(setupMap);
 
-            var width = 1400;
-            var height = 900;
-
-            var barHeight = 210;
-            var barWidth = 200;
-    
+            var width = 1200;
+            var height = 800;
+            
             var margin = { top: 4, right: 6, bottom: 16, left: -5 };
 
-            function setupMap(error, world, counties, facilities, districts) {
-                //data.forEach(function (d) {
-                //    d.amount = +d.amount/1000000;
-                //});
+            function setupMap(error, regions, facilities, districts) {
 
                 // Convert TopoJSON to GeoJSON 
-                var counties = topojson.feature(counties, counties.objects.School_Regions);
-               
+                var regions = topojson.feature(regions, regions.objects.School_Regions);
                 var facilities = topojson.feature(facilities, facilities.objects.School_Facilities);
-                debugger;
                 var districts = topojson.feature(districts, districts.objects.Supervisor_Districts);
 
                 path = makePathGenerator(districts);
@@ -181,17 +172,17 @@
                     .style('fill-opacity', 0.5)
                     .on('mouseover', function (d) {
 
-                        //d3.select(this).style('fill-opacity', 1)
-                        //    .attr("stroke", "black")
-                        //    .attr("stroke-width", 2);
+                        d3.select(this).style('fill-opacity', 1)
+                            .attr("stroke", "black")
+                            .attr("stroke-width", 2);
 
-                        //d3.select("#countrytooltip")
-                        //    .style("left", (d3.event.pageX + 15) + "px")
-                        //    .style("top", (d3.event.pageY - 10) + "px")
-                        //    .select("#country")
-                        //    .text("Hello");
+                        d3.select("#countrytooltip")
+                            .style("left", (d3.event.pageX + 15) + "px")
+                            .style("top", (d3.event.pageY - 10) + "px")
+                            .select("#country")
+                            .text("Hello");
 
-                        //d3.select("#countrytooltip").classed("hidden", false);
+                        d3.select("#countrytooltip").classed("hidden", false);
                     })
                     .on('mouseout', function (d) {
                         d3.select(this)
@@ -215,9 +206,10 @@
                     .projection(projection);
 
                 // Compute the bounds of a feature of interest, then derive scale & translate.
+                var scootLeft = 250;
                 var b = path.bounds(features),
                     s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
-                    t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+                    t = [((width - s * (b[1][0] + b[0][0])) / 2) - scootLeft, (height - s * (b[1][1] + b[0][1])) / 2];
 
                 // Update the projection to use computed scale & translate.
                 projection
