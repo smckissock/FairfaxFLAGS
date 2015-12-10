@@ -130,6 +130,8 @@
             queue()
                 .defer(d3.json, 'world_topo.json')
                 .defer(d3.json, 'School_Regions_topo.json')
+                .defer(d3.json, 'School_Facilities_topo.json')
+                .defer(d3.json, 'Supervisor_Districts_topo.json')
                 .await(setupMap);
 
             var width = 1400;
@@ -140,31 +142,19 @@
     
             var margin = { top: 4, right: 6, bottom: 16, left: -5 };
 
-            function setupMap(error, world, counties) {
+            function setupMap(error, world, counties, facilities, districts) {
                 //data.forEach(function (d) {
                 //    d.amount = +d.amount/1000000;
                 //});
 
-                // http://stackoverflow.com/questions/14492284/center-a-map-in-d3-given-a-geojson-object
+                // Convert TopoJSON to GeoJSON 
                 var counties = topojson.feature(counties, counties.objects.School_Regions);
+               
+                var facilities = topojson.feature(facilities, facilities.objects.School_Facilities);
+                debugger;
+                var districts = topojson.feature(districts, districts.objects.Supervisor_Districts);
 
-                var projection = d3.geo.albers()
-                    .scale(1)
-                    .translate([0, 0]);
-
-                // Create a path generator.
-                var path = d3.geo.path()
-                    .projection(projection);
-
-                // Compute the bounds of a feature of interest, then derive scale & translate.
-                var b = path.bounds(counties),
-                    s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
-                    t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
-
-                // Update the projection to use computed scale & translate.
-                projection
-                    .scale(s)
-                    .translate(t);
+                path = makePathGenerator(districts);
 
                 svg = d3.select("body")
                     .append("svg")
@@ -176,7 +166,7 @@
                     .attr('class', 'boundary');
 
                 map = all.selectAll('path')
-                    .data(counties.features)
+                    .data(districts.features)
                     .enter()
                     .append('path')
                     .attr('d', path)
@@ -214,6 +204,28 @@
             }
     
 
+            // http://stackoverflow.com/questions/14492284/center-a-map-in-d3-given-a-geojson-object
+            function makePathGenerator(features) {
+                var projection = d3.geo.albers()
+                    .scale(1)
+                    .translate([0, 0]);
+
+                // Create a path generator.
+                var path = d3.geo.path()
+                    .projection(projection);
+
+                // Compute the bounds of a feature of interest, then derive scale & translate.
+                var b = path.bounds(features),
+                    s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+                    t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+
+                // Update the projection to use computed scale & translate.
+                projection
+                    .scale(s)
+                    .translate(t);
+
+                return path;
+            }
     </script>
 </body>
 </html>
