@@ -175,8 +175,6 @@
                 var facilities = topojson.feature(facilities, facilities.objects.School_Facilities);
                 var districts = topojson.feature(districts, districts.objects.Supervisor_Districts);
 
-                //districts.features.forEach(function (d) { console.log(d.properties) });
-
                 var immersionSchools = getImmersionSchools(facilities, immersionSchoolData);
 
                 var projection = makeProjection(districts);
@@ -199,7 +197,6 @@
                     .attr('d', path)
                     .attr("stroke", "dimgray")
                     .style("fill", function (d) {
-                        //return d.value ? color(d.value) : defaultColor;
                         return "lightgrey";
                     })
                     .style("fill-opacity", function (d) {
@@ -233,6 +230,9 @@
                     .data(immersionSchools.features)
                     .enter()
                     .append("circle")
+                    .filter(function (d) {
+                        return d.properties.TYPE_DESC == "Elementary"; //true; //d.close < 400
+                    })
                     .attr("cx", function (d) {
                         return projection([d.geometry.coordinates[0], d.geometry.coordinates[1]])[0];
                     })
@@ -240,6 +240,38 @@
                         return projection([d.geometry.coordinates[0], d.geometry.coordinates[1]])[1];
                     })
                     .attr("r", 10)
+                    .attr("stroke", "dimgray")
+                    .style("fill", function (d) {
+                        return d.properties.language ? languageScale(d.properties.language) : "black";
+                    })
+                    .style("opacity", 1.0)
+                    .on('mouseover', function (d) {
+                        console.log(d);
+                    })
+                    .on('click', function (d) {
+                        console.log(d.properties.DISTRICT);
+                    })
+
+                var rectSide = 18;
+
+                var schoolRecangles = svg.selectAll("rect")
+                    .data(immersionSchools.features)
+                    .enter()
+                    .append("rect")
+                    .filter(function (d) {
+                        console.log(d);
+                        return d.properties.TYPE_DESC == "Middle"; 
+                    })
+
+                    .attr("x", function (d) {
+                        return projection([d.geometry.coordinates[0], d.geometry.coordinates[1]])[0] - (rectSide /2 );
+                    })
+                    .attr("y", function (d) {
+                        return projection([d.geometry.coordinates[0], d.geometry.coordinates[1]])[1] - (rectSide / 2);
+                    })
+                    .attr("width", rectSide)
+                    .attr("height", rectSide)
+
                     .attr("stroke", "dimgray")
                     .style("fill", function (d) {
                         return d.properties.language ? languageScale(d.properties.language) : "black";
