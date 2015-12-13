@@ -147,8 +147,9 @@
 
     <div id="districttooltip" class="hidden">
         <p>
-            <strong><span id="district">name</span></strong>
+            <strong><span id="districtName">name</span></strong>
             <br>Supervisor: <b><span id="supervisor"></span></b>
+            <br>School Board: <b><span id="schoolBoard"></span></b>
         </p>
     </div>    
     
@@ -223,8 +224,9 @@
                             .style("top", (d3.event.pageY - 10) + "px")
                             .classed("hidden", false);
                           
-                        d3.select("#district").text(d.properties.DISTRICT + " District");
-                        d3.select("#supervisor").text(d.properties.NAME);
+                        d3.select("#districtName").text(d.properties.DISTRICT + " District");
+                        d3.select("#supervisor").text(d.properties.NAME)
+                        d3.select("#schoolBoard").text(d.properties.schoolBoard);
                     })
                     .on('mouseout', function (d) {
                         d3.select(this)
@@ -394,7 +396,13 @@
 
             // Add data from district csv to district shapes 
             function AddDistrictData(districts, districtData) {
-
+                districts.features.forEach(function (district) {
+                    console.log(district);
+                    districtData.forEach(function (data) {
+                        if (district.properties.DISTRICT == data.district)
+                            district.properties.schoolBoard = data.schoolBoard;
+                    });
+                });
             }
 
             // Get the locations of the immersion schools from the list of all facilities, and add school data
