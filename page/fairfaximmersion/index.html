@@ -75,7 +75,7 @@
                 line-height: 1;
             }
 
-        #countrytooltip {
+        #districttooltip {
             font-family: Helvetica, Arial, sans-serif;
             z-index: 1;
             position: absolute;
@@ -91,9 +91,9 @@
             pointer-events: none;
         }
 
-            #countrytooltip.hidden {
-                display: none;
-            }
+        #districttooltip.hidden {
+            display: none;
+        }
 
         .legendLinear {
             font-family: Helvetica, Arial, sans-serif;
@@ -144,6 +144,13 @@
 <body>
     <h1>Fairfax County Immersion Schools</h1>
     <h3></h3>
+
+    <div id="districttooltip" class="hidden">
+        <p>
+            <strong><span id="district">name</span></strong>
+            <br>Supervisor: <b><span id="supervisor"></span></b>
+        </p>
+    </div>    
     
     <script type="text/javascript">
             var svg;
@@ -181,6 +188,8 @@
                 var path = d3.geo.path()
                     .projection(projection);
 
+                AddDistrictData(districts, districtData);
+
                 svg = d3.select("body")
                     .append("svg")
                     .attr("width", width)
@@ -204,15 +213,18 @@
                     })
                     .style('fill-opacity', 0.5)
                     .on('mouseover', function (d) {
+
                         d3.select(this).style('fill-opacity', .9)
                             .attr("stroke", "black")
                             .attr("stroke-width", 2);
-                        d3.select("#countrytooltip")
+
+                        d3.select("#districttooltip")
                             .style("left", (d3.event.pageX + 15) + "px")
                             .style("top", (d3.event.pageY - 10) + "px")
-                            .select("#country")
-                            .text("Hello");
-                        d3.select("#countrytooltip").classed("hidden", false);
+                            .classed("hidden", false);
+                          
+                        d3.select("#district").text(d.properties.DISTRICT + " District");
+                        d3.select("#supervisor").text(d.properties.NAME);
                     })
                     .on('mouseout', function (d) {
                         d3.select(this)
@@ -220,7 +232,7 @@
                             .attr("stroke", "dimgray")
                             .attr("stroke-width", 1);
 
-                        d3.select("#countrytooltip").classed("hidden", true);
+                        d3.select("#districttooltip").classed("hidden", true);
                     })
                     .on('click', function (d) {
                         console.log(d.properties.DISTRICT);
@@ -258,7 +270,6 @@
                     .enter()
                     .append("rect")
                     .filter(function (d) {
-                        console.log(d);
                         return d.properties.TYPE_DESC == "Middle"; 
                     })
 
@@ -354,6 +365,36 @@
                 svg.append("text")
                     .attr("transform", "translate(40, 52)")
                     .text("Middle School");
+            }
+
+            function shapeLegend() {
+                svg.append("circle")
+                    .attr("cx", 20)
+                    .attr("cy", 20)
+                    .attr("r", 10)
+                    .style("fill", "white")
+                    .style("stroke", "darkgrey");
+
+                svg.append("rect")
+                    .attr("x", 12)
+                    .attr("y", 38)
+                    .attr("width", 18)
+                    .attr("height", 18)
+                    .style("fill", "white")
+                    .style("stroke", "darkgrey");
+
+                svg.append("text")
+                    .attr("transform", "translate(40, 26)")
+                    .text("Elementary School");
+
+                svg.append("text")
+                    .attr("transform", "translate(40, 52)")
+                    .text("Middle School");
+            }
+
+            // Add data from district csv to district shapes 
+            function AddDistrictData(districts, districtData) {
+
             }
 
             // Get the locations of the immersion schools from the list of all facilities, and add school data
