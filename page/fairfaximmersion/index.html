@@ -116,14 +116,13 @@
 			cursor: default;
 			/*background: #ffffff;*/
             pointer-events: none;
-
             stroke     : lightgrey;
-            fill       : lightgrey;
+            fill       : grey;
 		}
 
         .schoolLabel {
 		    /*font-weight: bold;*/
-		    font-size: 8px;
+		    font-size: 12px;
 			width: 60px;
 			text-anchor: middle;
 			cursor: default;
@@ -208,17 +207,14 @@
                     })
                     .style('fill-opacity', 0.5)
                     .on('mouseover', function (d) {
-
                         d3.select(this).style('fill-opacity', .9)
                             .attr("stroke", "black")
                             .attr("stroke-width", 2);
-
                         d3.select("#countrytooltip")
                             .style("left", (d3.event.pageX + 15) + "px")
                             .style("top", (d3.event.pageY - 10) + "px")
                             .select("#country")
                             .text("Hello");
-
                         d3.select("#countrytooltip").classed("hidden", false);
                     })
                     .on('mouseout', function (d) {
