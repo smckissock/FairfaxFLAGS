@@ -75,7 +75,7 @@
                 line-height: 1;
             }
 
-        #countrytooltip {
+        #districttooltip {
             font-family: Helvetica, Arial, sans-serif;
             z-index: 1;
             position: absolute;
@@ -91,9 +91,9 @@
             pointer-events: none;
         }
 
-            #countrytooltip.hidden {
-                display: none;
-            }
+        #districttooltip.hidden {
+            display: none;
+        }
 
         .legendLinear {
             font-family: Helvetica, Arial, sans-serif;
@@ -116,14 +116,13 @@
 			cursor: default;
 			/*background: #ffffff;*/
             pointer-events: none;
-
             stroke     : lightgrey;
-            fill       : lightgrey;
+            fill       : grey;
 		}
 
         .schoolLabel {
 		    /*font-weight: bold;*/
-		    font-size: 8px;
+		    font-size: 12px;
 			width: 60px;
 			text-anchor: middle;
 			cursor: default;
@@ -145,6 +144,14 @@
 <body>
     <h1>Fairfax County Immersion Schools</h1>
     <h3></h3>
+
+    <div id="districttooltip" class="hidden">
+        <p>
+            <strong><span id="districtName">name</span></strong>
+            <br>Supervisor: <b><span id="supervisor"></span></b>
+            <br>School Board: <b><span id="schoolBoard"></span></b>
+        </p>
+    </div>    
     
     <script type="text/javascript">
             var svg;
@@ -176,13 +183,13 @@
                 var facilities = topojson.feature(facilities, facilities.objects.School_Facilities);
                 var districts = topojson.feature(districts, districts.objects.Supervisor_Districts);
 
-                //districts.features.forEach(function (d) { console.log(d.properties) });
-
                 var immersionSchools = getImmersionSchools(facilities, immersionSchoolData);
 
                 var projection = makeProjection(districts);
                 var path = d3.geo.path()
                     .projection(projection);
+
+                AddDistrictData(districts, districtData);
 
                 svg = d3.select("body")
                     .append("svg")
@@ -200,7 +207,6 @@
                     .attr('d', path)
                     .attr("stroke", "dimgray")
                     .style("fill", function (d) {
-                        //return d.value ? color(d.value) : defaultColor;
                         return "lightgrey";
                     })
                     .style("fill-opacity", function (d) {
@@ -213,13 +219,14 @@
                             .attr("stroke", "black")
                             .attr("stroke-width", 2);
 
-                        d3.select("#countrytooltip")
+                        d3.select("#districttooltip")
                             .style("left", (d3.event.pageX + 15) + "px")
                             .style("top", (d3.event.pageY - 10) + "px")
-                            .select("#country")
-                            .text("Hello");
-
-                        d3.select("#countrytooltip").classed("hidden", false);
+                            .classed("hidden", false);
+                          
+                        d3.select("#districtName").text(d.properties.DISTRICT + " District");
+                        d3.select("#supervisor").text(d.properties.NAME)
+                        d3.select("#schoolBoard").text(d.properties.schoolBoard);
                     })
                     .on('mouseout', function (d) {
                         d3.select(this)
@@ -227,7 +234,7 @@
                             .attr("stroke", "dimgray")
                             .attr("stroke-width", 1);
 
-                        d3.select("#countrytooltip").classed("hidden", true);
+                        d3.select("#districttooltip").classed("hidden", true);
                     })
                     .on('click', function (d) {
                         console.log(d.properties.DISTRICT);
@@ -237,6 +244,9 @@
                     .data(immersionSchools.features)
                     .enter()
                     .append("circle")
+                    .filter(function (d) {
+                        return d.properties.TYPE_DESC == "Elementary"; //true; //d.close < 400
+                    })
                     .attr("cx", function (d) {
                         return projection([d.geometry.coordinates[0], d.geometry.coordinates[1]])[0];
                     })
@@ -244,6 +254,36 @@
                         return projection([d.geometry.coordinates[0], d.geometry.coordinates[1]])[1];
                     })
                     .attr("r", 10)
+                    .attr("stroke", "dimgray")
+                    .style("fill", function (d) {
+                        return d.properties.language ? languageScale(d.properties.language) : "black";
+                    })
+                    .style("opacity", 1.0)
+                    .on('mouseover', function (d) {
+                        console.log(d);
+                    })
+                    .on('click', function (d) {
+                        console.log(d.properties.DISTRICT);
+                    })
+
+                var rectSide = 18;
+                var schoolRecangles = svg.selectAll("rect")
+                    .data(immersionSchools.features)
+                    .enter()
+                    .append("rect")
+                    .filter(function (d) {
+                        return d.properties.TYPE_DESC == "Middle"; 
+                    })
+
+                    .attr("x", function (d) {
+                        return projection([d.geometry.coordinates[0], d.geometry.coordinates[1]])[0] - (rectSide /2 );
+                    })
+                    .attr("y", function (d) {
+                        return projection([d.geometry.coordinates[0], d.geometry.coordinates[1]])[1] - (rectSide / 2);
+                    })
+                    .attr("width", rectSide)
+                    .attr("height", rectSide)
+
                     .attr("stroke", "dimgray")
                     .style("fill", function (d) {
                         return d.properties.language ? languageScale(d.properties.language) : "black";
@@ -283,9 +323,14 @@
 					    })
 					    .text(function (d) { return d.properties.DISTRICT; });
 
+                colorLegend(languageScale);
+                shapeLegend();
+            }
+
+            function colorLegend(languageScale) {
                 svg.append("g")
                        .attr("class", "legendOrdinal")
-                       .attr("transform", "translate(30, 50)");
+                       .attr("transform", "translate(20, 85)");
 
                 var legendOrdinal = d3.legend.color()
                   //d3 symbol creates a path-string, for example
@@ -297,6 +342,67 @@
 
                 svg.select(".legendOrdinal")
                   .call(legendOrdinal);
+            }
+
+            function shapeLegend() {
+                svg.append("circle")
+                    .attr("cx", 20)
+                    .attr("cy", 20)
+                    .attr("r", 10)
+                    .style("fill", "white")
+                    .style("stroke", "darkgrey");
+
+                svg.append("rect")
+                    .attr("x", 12)
+                    .attr("y", 38)
+                    .attr("width", 18)
+                    .attr("height", 18)
+                    .style("fill", "white")
+                    .style("stroke", "darkgrey");
+
+                svg.append("text")
+                    .attr("transform", "translate(40, 26)")
+                    .text("Elementary School");
+
+                svg.append("text")
+                    .attr("transform", "translate(40, 52)")
+                    .text("Middle School");
+            }
+
+            function shapeLegend() {
+                svg.append("circle")
+                    .attr("cx", 20)
+                    .attr("cy", 20)
+                    .attr("r", 10)
+                    .style("fill", "white")
+                    .style("stroke", "darkgrey");
+
+                svg.append("rect")
+                    .attr("x", 12)
+                    .attr("y", 38)
+                    .attr("width", 18)
+                    .attr("height", 18)
+                    .style("fill", "white")
+                    .style("stroke", "darkgrey");
+
+                svg.append("text")
+                    .attr("transform", "translate(40, 26)")
+                    .text("Elementary School");
+
+                svg.append("text")
+                    .attr("transform", "translate(40, 52)")
+                    .text("Middle School");
+            }
+
+            // Add data from district csv to district shapes 
+            function AddDistrictData(districts, districtData) {
+                districts.features.forEach(function (district) {
+                    console.log(district);
+                    districtData.forEach(function (data) {
+                        if (district.properties.DISTRICT == data.district)
+                            district.properties.schoolBoard = data.schoolBoard;
+                    });
+                });
             }
 
             // Get the locations of the immersion schools from the list of all facilities, and add school data
