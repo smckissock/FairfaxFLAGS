@@ -150,7 +150,9 @@
             <strong><span id="districtName">name</span></strong>
             <br>Supervisor: <b><span id="supervisor"></span></b>
             <br>School Board: <b><span id="schoolBoard"></span></b>
-        </p>
+            <img id="schoolBoardPhoto" src="../../photo/schoolboard/070812-0006-imoon-web.JPG" width="100" height="150" />
+            <img id="supervisorPhoto" src="../../photo/supervisor/070812-0006-imoon-web.JPG" width="100" height="150" />
+        </p>        
     </div>    
     
     <script type="text/javascript">
@@ -214,19 +216,30 @@
                     })
                     .style('fill-opacity', 0.5)
                     .on('mouseover', function (d) {
-
+                        var district = d.properties;
+                      
                         d3.select(this).style('fill-opacity', .9)
                             .attr("stroke", "black")
                             .attr("stroke-width", 2);
 
                         d3.select("#districttooltip")
-                            .style("left", (d3.event.pageX + 15) + "px")
-                            .style("top", (d3.event.pageY - 10) + "px")
+                            //.style("left", (d3.event.pageX + 15) + "px")
+                            //.style("top", (d3.event.pageY - 10) + "px")
+                            .style("left", "570px")
+                            .style("top", "50px")
                             .classed("hidden", false);
                           
-                        d3.select("#districtName").text(d.properties.DISTRICT + " District");
-                        d3.select("#supervisor").text(d.properties.NAME)
-                        d3.select("#schoolBoard").text(d.properties.schoolBoard);
+                        d3.select("#districtName").text(district.DISTRICT + " District");
+                        d3.select("#supervisor").text(district.NAME)
+                        d3.select("#schoolBoard").text(district.schoolBoard);
+
+                        d3.select("#schoolBoardPhoto").attr("src", function (d) {
+                            return "../../photo/schoolboard/" + district.DISTRICT.replace(" ", "-") + ".JPG";
+                        });
+
+                        d3.select("#supervisorPhoto").attr("src", function (d) {
+                            return "../../photo/supervisor/" + district.DISTRICT.replace(" ", "-") + ".JPG";
+                        });
                     })
                     .on('mouseout', function (d) {
                         d3.select(this)
