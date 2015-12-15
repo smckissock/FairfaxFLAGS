@@ -193,9 +193,12 @@
                         .style("top", "50px")
                         .classed("hidden", false);
 
-                    d3.select("#districtName").text(district.DISTRICT + " District");
-                    d3.select("#supervisor").text(district.NAME)
-                    d3.select("#schoolBoard").text(district.schoolBoard);
+                    d3.select("#districtName")
+                        .text(district.DISTRICT + " District")
+                        .style("font-size", "24px");
+
+                    d3.select("#supervisor").text(district.NAME).style("font-size", "12px");
+                    d3.select("#schoolBoard").text(district.schoolBoard).style("font-size", "12px");
 
                     d3.select("#schoolBoardPhoto").attr("src", function (d) {
                         return "../../photo/school-board/" + district.DISTRICT.replace(" ", "-") + ".jpg";
@@ -203,7 +206,7 @@
 
                     d3.select("#supervisorPhoto").attr("src", function (d) {
                         return "../../photo/supervisor/" + district.DISTRICT.replace(" ", "-") + ".jpg";
-                    });
+                    }).style("font-size", "8px");
                 })
                 .on('mouseout', function (d) {
                     d3.select(this)
