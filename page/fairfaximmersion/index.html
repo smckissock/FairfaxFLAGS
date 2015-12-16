@@ -220,6 +220,22 @@
                     console.log(d.properties.DISTRICT);
                 })
 
+            var districtLabels = svg.selectAll(".districtLabel text")
+                .data(districts.features)
+                .enter()
+                .append("text")
+                    .attr("class", "districtLabel")
+                    .attr("transform", function (d) {
+                        var centroid = path.centroid(d);
+                        centroid[0] = centroid[0] + 10;
+                        centroid[1] = centroid[1];
+
+                        console.log(d.properties.DISTRICT + " " + centroid )
+
+                        return "translate(" + centroid + ")";
+                    })
+                    .text(function (d) { return d.properties.DISTRICT; });
+
             var schoolCircles = svg.selectAll("circle")
                 .data(immersionSchools.features)
                 .enter()
@@ -289,19 +305,6 @@
                     .text(function (d) {
                         return d.properties.name;
                     });
-
-            var label = svg.selectAll(".districtLabel text")
-                .data(districts.features)
-                .enter()
-                .append("text")
-                    .attr("class", "districtLabel")
-                    .attr("transform", function (d) {
-                        var centroid = path.centroid(d);
-                        centroid[0] = centroid[0] - 30;
-                        centroid[1] = centroid[1] + 10;
-                        return "translate(" + centroid + ")";
-                    })
-                    .text(function (d) { return d.properties.DISTRICT; });
 
             colorLegend(languageScale);
             shapeLegend();
