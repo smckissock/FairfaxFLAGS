@@ -51,7 +51,7 @@
                 display: none;
             }
 
-        .districtLabel {
+        .countyLabel {
             font-weight: bolder;
             font-size: 24px;
             width: 60px;
@@ -111,6 +111,28 @@
                 .style("fill-opacity", function (d) {
                     return d.value ? 0.5 : 1.0;
                 });
+
+            var districtLabels = svg.selectAll(".districtLabel text")
+                .data(counties.features)
+                .enter()
+                .append("text")
+                    .attr("class", "countyLabel")
+                    .attr("transform", function (d) {
+                        var centroid = path.centroid(d);
+                        centroid[0] = centroid[0] - 5;
+                        centroid[1] = centroid[1] + 15;
+
+                        console.log(d.properties.Name + " " + centroid)
+
+                        return "translate(" + centroid + ")";
+                    })
+                    .text(function (d) {
+                        if (d.properties.NAME == "District of Columbia") 
+                            return "DC"
+                        else
+                            return d.properties.NAME
+                        ;
+                    });
         }
 
         // http://stackoverflow.com/questions/14492284/center-a-map-in-d3-given-a-geojson-object
