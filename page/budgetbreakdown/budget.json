@@ -1,0 +1,44 @@
+﻿{
+    "nodes": [
+        
+        { "name": "County Transfer", "category": "myAidIsQuestion" },
+
+        { "name": "Total Budget", "category": "myAidIsQuestion" },
+
+        { "name": "Operations", "category": "myAidIsQuestion" },
+        { "name": "Instruction", "category": "myAidIsQuestion" },
+
+        { "name": "Elementary", "category": "myAidIsQuestion" },
+
+        { "name": "Transportation", "category": "myAidIsQuestion" },
+        { "name": "Facilities Management", "category": "myAidIsQuestion" },
+        { "name": "General Support", "category": "myAidIsQuestion" },
+
+        { "name": "Instructional Support", "category": "myAidIsQuestion" },
+        { "name": "Special Education", "category": "myAidIsQuestion" },
+        { "name": "Adult and Community Ed", "category": "myAidIsQuestion" },
+        { "name": "High", "category": "myAidIsQuestion" },
+        { "name": "Middle", "category": "myAidIsQuestion" }
+    ],
+    "links": [
+        { "source": 0, "target": 1, "value": 1835.2 },
+        
+        { "source": 1, "target": 3, "value": 2020 },
+        { "source": 1, "target": 2, "value": 580 },
+        
+        { "source": 3, "target": 4, "value": 829 },
+
+        { "source": 2, "target": 5, "value": 155.2 },
+        { "source": 2, "target": 6, "value": 107 },
+        { "source": 2, "target": 7, "value": 111.5 },
+
+        { "source": 2, "target": 7, "value": 111.5 },
+
+        { "source": 3, "target": 8, "value": 125.9 },
+        { "source": 3, "target": 9, "value": 464.3 },
+        { "source": 3, "target": 10, "value": 0.5 },
+        { "source": 3, "target": 11, "value": 523 },
+        { "source": 3, "target": 12, "value": 235.2 }
+    ]
+}
+

@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Fairfax Country Immersion Schools</title>
+    <title>Fairfax County Budget Breakdowns</title>
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="../../lib/sankey.js"></script>
     <script src="http://d3js.org/queue.v1.min.js"></script>
@@ -143,23 +143,23 @@
 
 
     <header>
-        <b>Student Financials: Breaking down the Issues </b>
-        <br>Sara Quigley March 18, 2013
+        <b>Fairfax County Public Schools FY 2016 Approved Budget</b>
+        <br>Funding sources and uses
         <p>
     </header>
 
     <div class="columnHead">
-        <span class="lookingAtMyAccount">My Question as a Student</span>
-        <span class="whatsHappening">What's Going On</span>
-        <span class="whatsProblematic">What's Problematic</span>
-        <span class="proposedRemediation">Proposed Remediation</span>
-        <span class="ProcessDesignTech">
+        <span class="lookingAtMyAccount">Funding Sources</span>
+        <span class="whatsHappening">Total Budget</span>
+        <span class="whatsProblematic">Instruction & Operations</span>
+        <span class="proposedRemediation">Details</span>
+        <!--<span class="ProcessDesignTech">
            
             <br>
             <font color="#a55194">Design</font><font color="#7f7f7f"> | </font>
             <font color="#ce6dbd">Process</font><font color="#7f7f7f"> | </font>
             <font color="#de9ed6">Tech</font>
-        </span>
+        </span>-->
     </div>
     <p id="chart">
 
@@ -192,21 +192,19 @@
             var sankey = d3.sankey()
                 .nodeWidth(15)
                 .nodePadding(15)
-                .size([width, height]);
+                .size([width - 150, height]);
 
             var path = sankey.link();
 
-            d3.json("sankey.json", function (energy) {
-
-                debugger;
-
+            d3.json("budget.json", function (budget) {
+                
                 sankey
-                    .nodes(energy.nodes)
-                    .links(energy.links)
+                    .nodes(budget.nodes)
+                    .links(budget.links)
                     .layout(20);
 
                 var link = svg.append("g").selectAll(".link")
-                    .data(energy.links)
+                    .data(budget.links)
                   .enter().append("path")
                     .attr("class", "link")
                     .attr("d", path)
@@ -217,7 +215,7 @@
                     .text(function (d) { return d.source.name + " → " + d.target.name; });
 
                 var node = svg.append("g").selectAll(".node")
-                    .data(energy.nodes)
+                    .data(budget.nodes)
                   .enter().append("g")
                     .attr("class", "node")
                     .attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; })
@@ -242,8 +240,8 @@
                     .text(function (d) { return d.name; })
                   .filter(function (d) { return d.x > width * .9; })
                     .attr("class", function (d) { return d.category; })
-                    .attr("text-anchor", "end")
-                    .attr("transform", function (d) { return "translate (" + ((d.dy / 2) + 30) + "," + (d.dy / 2) + ") rotate(90)"; });
+                   // .attr("text-anchor", "end")
+                   // .attr("transform", function (d) { return "translate (" + ((d.dy / 2) + 30) + "," + (d.dy / 2) + ") rotate(90)"; });
 
 
                 function dragmove(d) {
