@@ -18,13 +18,21 @@
         { "name": "Special Education", "category": "myAidIsQuestion" },
         { "name": "Adult and Community Ed", "category": "myAidIsQuestion" },
         { "name": "High", "category": "myAidIsQuestion" },
-        { "name": "Middle", "category": "myAidIsQuestion" }
+        { "name": "Middle", "category": "myAidIsQuestion" },
+
+        { "name": "State Aid", "category": "myAidIsQuestion" },
+        { "name": "Sales Tax", "category": "myAidIsQuestion" },
+        { "name": "Federal Aid", "category": "myAidIsQuestion" },
+        { "name": "Beginning Balance", "category": "myAidIsQuestion" },
+        { "name": "City of Fairfax", "category": "myAidIsQuestion" },
+        { "name": "Other", "category": "myAidIsQuestion" },
+        { "name": "Reserves", "category": "myAidIsQuestion" }
     ],
     "links": [
         { "source": 0, "target": 1, "value": 1835.2 },
         
-        { "source": 1, "target": 3, "value": 2020 },
-        { "source": 1, "target": 2, "value": 580 },
+        { "source": 1, "target": 3, "value": 2178 },
+        { "source": 1, "target": 2, "value": 374 },
         
         { "source": 3, "target": 4, "value": 829 },
 
@@ -38,7 +46,15 @@
         { "source": 3, "target": 9, "value": 464.3 },
         { "source": 3, "target": 10, "value": 0.5 },
         { "source": 3, "target": 11, "value": 523 },
-        { "source": 3, "target": 12, "value": 235.2 }
+        { "source": 3, "target": 12, "value": 235.2 },
+
+        { "source": 13, "target": 1, "value": 405.8 },
+        { "source": 14, "target": 1, "value": 182.3},
+        { "source": 15, "target": 1, "value": 42.2},
+        { "source": 16, "target": 1, "value": 27.8},
+        { "source": 17, "target": 1, "value": 42.9},
+        { "source": 18, "target": 1, "value": 20},
+        { "source": 19, "target": 1, "value": 18.2}
     ]
 }
 
