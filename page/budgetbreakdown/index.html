@@ -80,10 +80,10 @@
             stroke-opacity: .2;
         }
 
-            .link:hover {
-                stroke-opacity: .5;
-            }
-
+        .link:hover {
+            stroke-opacity: .5;
+        }
+        
         .lookingAtMyAccount {
             fill: #1f77b4;
             color: #1f77b4;
@@ -232,31 +232,23 @@
 
                 node.append("text")
                     .attr("x", 6 + sankey.nodeWidth())
-                    .attr("y", function (d) { return (d.dy / 2) - 10; })
-                    .attr("dy", ".35em")
+                    .attr("y", function (d) { return (d.dy / 2) - 2; })
                     .attr("text-anchor", "start")
-                    .attr("transform", null)
                     .text(function (d) {
                         return d.name;
                     });
 
                 node.append("text")
-                    .attr("x", 6 + sankey.nodeWidth())
-                    .attr("y", function (d) { return (d.dy / 2) + 10; })
-                    .attr("dy", ".25em")
+                    .attr("x", 7 + sankey.nodeWidth())
+                    .attr("y", function (d) { return (d.dy / 2) + 13; })
                     .attr("text-anchor", "start")
-                    .attr("transform", null)
+                    .attr("font-size", 11)
+                    .attr("fill", "grey")
                     .text(function (d) {
                         if (d.amount)
-                            return d.amount + "m " + pct(+d.amount / 2600);
+                            return d.amount + "m   (" + pct(+d.amount / 2600) + ")";
                     });
-
-
-                 // .filter(function (d) { return d.x > width * .9; })
-                //    .attr("class", function (d) { return d.category; })
-                   // .attr("text-anchor", "end")
-                   // .attr("transform", function (d) { return "translate (" + ((d.dy / 2) + 30) + "," + (d.dy / 2) + ") rotate(90)"; });
-
+                
                 function dragmove(d) {
                     d3.select(this)
                         .attr("transform", "translate(" + (
@@ -267,9 +259,7 @@
                 }
             });
 
-
         </script>
-
 </body>
 </html>
 
