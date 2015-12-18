@@ -84,15 +84,16 @@
             stroke-opacity: .5;
         }
         
-        .lookingAtMyAccount {
+        .fundingSources  {
+            font-weight: bolder;
             fill: #1f77b4;
             color: #1f77b4;
             position: absolute;
             width: 200px;
         }
 
-
-        .whatsHappening {
+        .totalBudget {
+            font-weight: bolder;
             fill: #bd9e39;
             color: #bd9e39;
             left: 200px;
@@ -100,7 +101,8 @@
             width: 200px;
         }
 
-        .whatsProblematic {
+        .instructionAndOperations {
+            font-weight: bolder;
             fill: #ad494a;
             color: #ad494a;
             left: 400px;
@@ -108,7 +110,8 @@
             width: 200px;
         }
 
-        .proposedRemediation {
+        .uses {
+            font-weight: bolder;
             fill: #637939;
             color: #637939;
             left: 690px;
@@ -143,22 +146,15 @@
 
     <header>
         <b>Fairfax County Public Schools FY 2016 Approved Budget</b>
-        <br>Funding sources and uses
+        <!--<br>Funding sources and uses-->
         <p>
     </header>
 
     <div class="columnHead">
-        <span class="lookingAtMyAccount">Funding Sources</span>
-        <span class="whatsHappening">Total Budget</span>
-        <span class="whatsProblematic">Instruction & Operations</span>
-        <span class="proposedRemediation">Uses</span>
-        <!--<span class="ProcessDesignTech">
-           
-            <br>
-            <font color="#a55194">Design</font><font color="#7f7f7f"> | </font>
-            <font color="#ce6dbd">Process</font><font color="#7f7f7f"> | </font>
-            <font color="#de9ed6">Tech</font>
-        </span>-->
+        <span class="fundingSources">Funding Sources</span>
+        <span class="totalBudget">Total Budget</span>
+        <span class="instructionAndOperations">Instruction & Operations</span>
+        <span class="uses">Uses</span>
     </div>
     <p id="chart">
         
@@ -166,22 +162,23 @@
             var pct = d3.format(",.1%");
 
             var margin = {
-                top: 50, right: 30, bottom: 6, left: 1
+                top: 20, right: 30, bottom: 6, left: 1
             },
 
             width = 900 - margin.left - margin.right,
             height = 700 - margin.top - margin.bottom;
 
-            var category20b_sq = ['#393b79', '#5254a3', '#6b6ecf', '#9c9ede', '#8c6d31', '#bd9e39', '#e7ba52', '#e7cb94',
-            '#843c39', '#ad494a', '#d6616b', '#e7969c', '#637939', '#8ca252', '#b5cf6b', '#cedb9c',
-            '#ce6dbd', '#a55194', '#de9ed6', '#7b4173'];
-
+            var colors = ['#1f77b4', '#bd9e39', '#ad494a', '#637939'];
+            
             var formatNumber = d3.format(",.0f"),
             format = function (d) {
                 return formatNumber(d);
             },
 
-            color = d3.scale.ordinal().range(category20b_sq);
+            color = d3.scale.ordinal()
+                .domain(['Funding Sources', 'Total Budget', 'Instruction & Operations', 'Uses'])
+                .range(colors);
+
             var svg = d3.select("#chart")
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
@@ -190,7 +187,7 @@
 
             var sankey = d3.sankey()
                 .nodeWidth(20)
-                .nodePadding(35)
+                .nodePadding(25)
                 .size([width - 150, height]);
 
             var path = sankey.link();
@@ -231,15 +228,17 @@
                     .text(function (d) { return d.name; });
 
                 node.append("text")
-                    .attr("x", 6 + sankey.nodeWidth())
+                    .attr("x", 7 + sankey.nodeWidth())
                     .attr("y", function (d) { return (d.dy / 2) - 2; })
                     .attr("text-anchor", "start")
+                    .attr("fill", "#404040")
+                    .attr("font-weight", "bold")
                     .text(function (d) {
                         return d.name;
                     });
 
                 node.append("text")
-                    .attr("x", 7 + sankey.nodeWidth())
+                    .attr("x", 8 + sankey.nodeWidth())
                     .attr("y", function (d) { return (d.dy / 2) + 13; })
                     .attr("text-anchor", "start")
                     .attr("font-size", 11)
