@@ -1,32 +1,32 @@
 ﻿{
     "nodes": [
         
-        { "name": "County Transfer", "category": "myAidIsQuestion" },
+        { "name": "County Transfer", "category": "myAidIsQuestion", "amount": "1835.2" },
 
-        { "name": "Total Budget", "category": "myAidIsQuestion" },
+        { "name": "Total Budget", "category": "myAidIsQuestion", "amount": "2600" },
 
-        { "name": "Operations", "category": "myAidIsQuestion" },
-        { "name": "Instruction", "category": "myAidIsQuestion" },
+        { "name": "Operations", "category": "myAidIsQuestion", "amount": "374" },
+        { "name": "Instruction", "category": "myAidIsQuestion", "amount": "2178" },
 
-        { "name": "Elementary", "category": "myAidIsQuestion" },
+        { "name": "Elementary", "category": "myAidIsQuestion", "amount": "829" },
 
-        { "name": "Transportation", "category": "myAidIsQuestion" },
-        { "name": "Facilities Management", "category": "myAidIsQuestion" },
-        { "name": "General Support", "category": "myAidIsQuestion" },
+        { "name": "Transportation", "category": "myAidIsQuestion", "amount": "155.2" },
+        { "name": "Facilities Management", "category": "myAidIsQuestion", "amount": "107" },
+        { "name": "General Support", "category": "myAidIsQuestion", "amount": "111.5" },
 
-        { "name": "Instructional Support", "category": "myAidIsQuestion" },
-        { "name": "Special Education", "category": "myAidIsQuestion" },
-        { "name": "Adult and Community Ed", "category": "myAidIsQuestion" },
-        { "name": "High", "category": "myAidIsQuestion" },
-        { "name": "Middle", "category": "myAidIsQuestion" },
+        { "name": "Instructional Support", "category": "myAidIsQuestion", "amount": "125.9" },
+        { "name": "Special Education", "category": "myAidIsQuestion", "amount": "464.3" },
+        { "name": "Adult and Community Ed", "category": "myAidIsQuestion", "amount": ".5" },
+        { "name": "High", "category": "myAidIsQuestion", "amount": "523" },
+        { "name": "Middle", "category": "myAidIsQuestion", "amount": "235.2" },
 
-        { "name": "State Aid", "category": "myAidIsQuestion" },
-        { "name": "Sales Tax", "category": "myAidIsQuestion" },
-        { "name": "Federal Aid", "category": "myAidIsQuestion" },
-        { "name": "Beginning Balance", "category": "myAidIsQuestion" },
-        { "name": "City of Fairfax", "category": "myAidIsQuestion" },
-        { "name": "Other", "category": "myAidIsQuestion" },
-        { "name": "Reserves", "category": "myAidIsQuestion" }
+        { "name": "State Aid", "category": "myAidIsQuestion", "amount": "405.8" },
+        { "name": "Sales Tax", "category": "myAidIsQuestion", "amount": "182.3" },
+        { "name": "Federal Aid", "category": "myAidIsQuestion", "amount": "42.2" },
+        { "name": "Beginning Balance", "category": "myAidIsQuestion", "amount": "27.8" },
+        { "name": "City of Fairfax", "category": "myAidIsQuestion", "amount": "42.9" },
+        { "name": "Other", "category": "myAidIsQuestion", "amount": "20" },
+        { "name": "Reserves", "category": "myAidIsQuestion", "amount": "18.2" }
     ],
     "links": [
         { "source": 0, "target": 1, "value": 1835.2 },
@@ -39,9 +39,7 @@
         { "source": 2, "target": 5, "value": 155.2 },
         { "source": 2, "target": 6, "value": 107 },
         { "source": 2, "target": 7, "value": 111.5 },
-
-        { "source": 2, "target": 7, "value": 111.5 },
-
+        
         { "source": 3, "target": 8, "value": 125.9 },
         { "source": 3, "target": 9, "value": 464.3 },
         { "source": 3, "target": 10, "value": 0.5 },

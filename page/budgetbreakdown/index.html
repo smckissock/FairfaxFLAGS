@@ -151,7 +151,7 @@
         <span class="lookingAtMyAccount">Funding Sources</span>
         <span class="whatsHappening">Total Budget</span>
         <span class="whatsProblematic">Instruction & Operations</span>
-        <span class="proposedRemediation">Details</span>
+        <span class="proposedRemediation">Uses</span>
         <!--<span class="ProcessDesignTech">
            
             <br>
@@ -161,10 +161,10 @@
         </span>-->
     </div>
     <p id="chart">
-
-
-
+        
         <script>
+            var pct = d3.format(",.1%");
+
             var margin = {
                 top: 50, right: 30, bottom: 6, left: 1
             },
@@ -189,8 +189,8 @@
                 .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
             var sankey = d3.sankey()
-                .nodeWidth(15)
-                .nodePadding(15)
+                .nodeWidth(20)
+                .nodePadding(35)
                 .size([width - 150, height]);
 
             var path = sankey.link();
@@ -200,7 +200,7 @@
                 sankey
                     .nodes(budget.nodes)
                     .links(budget.links)
-                    .layout(20);
+                    .layout(50);
 
                 var link = svg.append("g").selectAll(".link")
                     .data(budget.links)
@@ -232,16 +232,30 @@
 
                 node.append("text")
                     .attr("x", 6 + sankey.nodeWidth())
-                    .attr("y", function (d) { return d.dy / 2; })
+                    .attr("y", function (d) { return (d.dy / 2) - 10; })
                     .attr("dy", ".35em")
                     .attr("text-anchor", "start")
                     .attr("transform", null)
-                    .text(function (d) { return d.name; })
-                  .filter(function (d) { return d.x > width * .9; })
-                    .attr("class", function (d) { return d.category; })
+                    .text(function (d) {
+                        return d.name;
+                    });
+
+                node.append("text")
+                    .attr("x", 6 + sankey.nodeWidth())
+                    .attr("y", function (d) { return (d.dy / 2) + 10; })
+                    .attr("dy", ".25em")
+                    .attr("text-anchor", "start")
+                    .attr("transform", null)
+                    .text(function (d) {
+                        if (d.amount)
+                            return d.amount + "m " + pct(+d.amount / 2600);
+                    });
+
+
+                 // .filter(function (d) { return d.x > width * .9; })
+                //    .attr("class", function (d) { return d.category; })
                    // .attr("text-anchor", "end")
                    // .attr("transform", function (d) { return "translate (" + ((d.dy / 2) + 30) + "," + (d.dy / 2) + ") rotate(90)"; });
-
 
                 function dragmove(d) {
                     d3.select(this)
