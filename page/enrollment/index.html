@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>US Foreign Assistance</title>
+
+    <script src='../../lib/d3.js' type='text/javascript'></script>
+    <script src='../../lib/crossfilter.js' type='text/javascript'></script>
+    <script src='../../lib/dc.js' type='text/javascript'></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="../../lib/jquery-1.11.3.min.js"></script>
+    <script src="../../lib/jquery.gridster.min.js"></script>
+
+    <!--<script src='js/foreignAssistance.js' type='text/javascript'></script>-->
+
+    <link href='../../css/dc.css' rel='stylesheet' type='text/css'>
+    <link href="../../css/jquery.gridster.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!--<div class="dc-data-count" style="float: left;">
+        <h3>Planned US Foreign Assistance 2006 - 2015 | <span> <a href="javascript:dc.filterAll(); dc.renderAll();">Reset</a></span> </h3>
+        <h4><span id="dc-chart-total"></span></h4>
+    </div>-->
+
+    <div class="gridster">
+        <ul>
+            <li id='dc-chart-schoolYear' data-row="1" data-col="1" data-sizex="2" data-sizey="1"><h4>School Year</h4></li>
+            <li id='dc-chart-school' data-row="1" data-col="3" data-sizex="1" data-sizey="1"><h4>School</h4></li>
+
+            <li id='dc-chart-language' data-row="2" data-col="1" data-sizex="1" data-sizey="3"><h4>Language</h4></li>
+
+            <li id='dc-chart-gradeLevel' data-row="2" data-col="2" data-sizex="1" data-sizey="1"><h4>Grade Level</h4></li>
+            <!--<li id='dc-chart-category' data-row="2" data-col="3" data-sizex="1" data-sizey="1"><h4>Category</h4></li>
+
+            <li id='dc-chart-account' data-row="3" data-col="2" data-sizex="1" data-sizey="1"><h4>Account</h4></li>
+            <li id='dc-chart-sector' data-row="3" data-col="3" data-sizex="1" data-sizey="1"><h4>Sector</h4></li>
+
+            <li id='dc-chart-sector' data-row="1" data-col="3" data-sizex="3" data-sizey="3"><h4>Map</h4></li>-->
+
+            <!--<li id='dc-chart-appropriationType' data-row="1" data-col="3" data-sizex="1" data-sizey="1"></li>-->
+            <!--<li data-row="3" data-col="1" data-sizex="1" data-sizey="1"></li>-->
+        </ul>
+    </div>
+
+    <!--<div class='container' style='font: 10px sans-serif;'>-->
+    <!--<div class='row'>
+        <div class='span12'>
+            <div class="dc-data-count" style="float: left;">
+                <h3>Planned US Foreign Assistance 2006 - 2015 | <span> <a href="javascript:dc.filterAll(); dc.renderAll();">Reset</a></span> </h3>
+                <h4><span id="dc-chart-total"></span></h4>
+            </div>
+        </div>
+    </div>-->
+</body>
+
+</html>
