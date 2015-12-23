@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title>US Foreign Assistance</title>
+    <title>Fairfax County Langage Immersion Enrollment</title>
 
     <script src='../../lib/d3.js' type='text/javascript'></script>
     <script src='../../lib/crossfilter.js' type='text/javascript'></script>
@@ -33,17 +33,165 @@
             <li id='dc-chart-language' data-row="2" data-col="1" data-sizex="1" data-sizey="3"><h4>Language</h4></li>
 
             <li id='dc-chart-gradeLevel' data-row="2" data-col="2" data-sizex="1" data-sizey="1"><h4>Grade Level</h4></li>
-            <!--<li id='dc-chart-category' data-row="2" data-col="3" data-sizex="1" data-sizey="1"><h4>Category</h4></li>
-
-            <li id='dc-chart-account' data-row="3" data-col="2" data-sizex="1" data-sizey="1"><h4>Account</h4></li>
-            <li id='dc-chart-sector' data-row="3" data-col="3" data-sizex="1" data-sizey="1"><h4>Sector</h4></li>
-
-            <li id='dc-chart-sector' data-row="1" data-col="3" data-sizex="3" data-sizey="3"><h4>Map</h4></li>-->
-
-            <!--<li id='dc-chart-appropriationType' data-row="1" data-col="3" data-sizex="1" data-sizey="1"></li>-->
-            <!--<li data-row="3" data-col="1" data-sizex="1" data-sizey="1"></li>-->
-        </ul>
+       </ul>
     </div>
+
+
+    <script type="text/javascript">
+
+    var billion = 1000000000;
+
+    var appropriationTypeColors =
+    ["#74C365", // light green
+    "#006600",  // dark green
+    "#007BA7"]; // blue
+
+   
+    queue()
+        .defer(d3.csv, '../../data/enrollment/enrollment.csv')
+        .await(setup);
+
+
+    function setup(error, data) {
+
+        var records = [];
+        data.forEach(function (d) {
+            for (i = 0; i < 7; i++) {
+                if (+d["grade" + i] != 0) {
+                    records.push({
+                        "school": d.school,
+                        "schoolYear": d.schoolYear,
+                        "language": d.language,
+                        "gradeLevel": "grade" + i,
+                        "students": +d["grade" + i]
+                    });
+                }
+            }
+        });
+        
+        var chartWidth = 220,
+        chartHeight = 230,
+        chartMargin = 5;
+
+        var gridster;
+        $(function () {
+            //var log = document.getElementById('log');
+            gridster = $(".gridster ul").gridster({
+                widget_base_dimensions: [chartWidth, chartHeight + 10],
+                widget_margins: [chartMargin, chartMargin],
+                resize: {
+                    enabled: false,
+                }
+            }).data('gridster');
+        });
+
+
+        // put data in crossfilter
+        var facts = crossfilter(records);
+
+        // 01 group for grand total
+        var totalGroup = facts.groupAll().reduce(
+        function (p, v) { // add function
+            return p += v.amount;
+        },
+        function (p, v) { // subtract function
+            return p -= v.amount;
+        },
+        function () { return 0 } // initial function
+        );
+        // or you could use this convenience function:
+        // var totalGroup = facts.groupAll().reduceSum(dc.pluck("amount"));
+
+
+        // 02 display grand total
+        dc.numberDisplay("#dc-chart-total")
+        .group(totalGroup)
+        .valueAccessor(function (d) {
+            return d;
+        })
+        //.formatNumber(function (d) { return Math.round(d) + " Billion"; });
+
+
+        // 03 dimension, group and pie chart for appropriation type
+        //var appropriationTypeDim = facts.dimension(dc.pluck('appropriationType'));
+        //var appropriationTypeGroupSum =
+        //appropriationTypeDim.group().reduceSum(dc.pluck("amount"));
+        //dc.pieChart("#dc-chart-appropriationType")
+        //.dimension(appropriationTypeDim)
+        //.group(appropriationTypeGroupSum)
+        //.width(200)
+        //.height(200)
+        //.radius(80)
+        //.ordinalColors(appropriationTypeColors)
+
+        //// 04 dimension and group for fiscal year - custom reducer
+        //var fiscalYearDim = facts.dimension(dc.pluck('fiscalYear'));
+        //var fiscalYearGroupSum = fiscalYearDim.group().reduce(
+        //function (p, v) { // add function
+        //    p[v.appropriationType] += v.amount;
+        //    return p;
+        //},
+        //function (p, v) { // subtract function
+        //    p[v.appropriationType] -= v.amount;
+        //    return p;
+        //},
+        //function () { // initial function
+        //    return { "Base": 0, "Supplemental": 0, "Request": 0 };
+        //}
+        //);
+
+        // 05 stacked bar chart for fiscal year w/appropriation types
+        //var bar = dc.barChart("#dc-chart-fiscalYear")
+        //.dimension(fiscalYearDim)
+        //.group(fiscalYearGroupSum, "Base").valueAccessor(function (d) { return d.value.Base; })
+        //.stack(fiscalYearGroupSum, "Supplemental", function (d) { return d.value.Supplemental; })
+        //.stack(fiscalYearGroupSum, "Request", function (d) { return d.value.Request; })
+        //.width(chartWidth * 2)
+        //.height(chartHeight).margins({ top: 10, right: 30, bottom: 20, left: 50 })
+        //.legend(dc.legend().x(60).y(20))
+        //.gap(10)  // space between bars
+        //.centerBar(true)
+        //.filter([2005.5, 2015.5])
+        //.x(d3.scale.linear().domain([2005.5, 2015.5]))
+        //.elasticY(true)
+        //.ordinalColors(appropriationTypeColors);
+
+        //// 06 Set format. These don't return the chart, so can't chain them
+        //bar.xAxis().tickFormat(d3.format("d")); // need "2005" not "2,005"
+        //bar.yAxis().tickFormat(function (v) { return v / billion + " B"; });
+
+        // 08 make row charts
+        new RowChart(facts, "school", chartWidth, 30);
+        new RowChart(facts, "schoolYear", chartWidth, 10);
+        new RowChart(facts, "language", chartWidth, 10);
+        new RowChart(facts, "sector", chartWidth, 10);
+        new RowChart(facts, "gradeLevel", chartWidth, 10);
+
+        // draw all dc charts. w/o this nothing happens!
+        dc.renderAll();
+    };
+
+    // 07 constructor function for row charts
+    var RowChart = function (facts, attribute, width, maxItems) {
+        this.dim = facts.dimension(dc.pluck(attribute));
+        dc.rowChart("#dc-chart-" + attribute)
+        .dimension(this.dim)
+        .group(this.dim.group().reduceSum(dc.pluck("students")))
+        .data(function (d) { return d.top(maxItems); })
+        .width(width)
+        .height(maxItems * 22)
+        .margins({ top: 0, right: 10, bottom: 20, left: 20 })
+        .elasticX(true)
+        .ordinalColors(['#9ecae1']) // light blue
+        .labelOffsetX(5)
+        .labelOffsetY(12)
+        .xAxis().ticks(4).tickFormat(d3.format(".2s"));
+    }
+
+    </script>
+
+
+
 
     <!--<div class='container' style='font: 10px sans-serif;'>-->
     <!--<div class='row'>
