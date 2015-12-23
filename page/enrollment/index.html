@@ -28,11 +28,9 @@
     <div class="gridster">
         <ul>
             <li id='dc-chart-schoolYear' data-row="1" data-col="1" data-sizex="2" data-sizey="1"><h4>School Year</h4></li>
-            <li id='dc-chart-school' data-row="1" data-col="3" data-sizex="1" data-sizey="1"><h4>School</h4></li>
-
-            <li id='dc-chart-language' data-row="2" data-col="1" data-sizex="1" data-sizey="3"><h4>Language</h4></li>
-
-            <li id='dc-chart-gradeLevel' data-row="2" data-col="2" data-sizex="1" data-sizey="1"><h4>Grade Level</h4></li>
+            <li id='dc-chart-school' data-row="2" data-col="1" data-sizex="1" data-sizey="2"><h4>School</h4></li>
+            <li id='dc-chart-language' data-row="2" data-col="2" data-sizex="1" data-sizey="1"><h4>Language</h4></li>
+            <li id='dc-chart-gradeLevel' data-row="3" data-col="2" data-sizex="1" data-sizey="1"><h4>Grade Level</h4></li>
        </ul>
     </div>
 
@@ -162,7 +160,7 @@
 
         // 08 make row charts
         new RowChart(facts, "school", chartWidth, 30);
-        new RowChart(facts, "schoolYear", chartWidth, 10);
+        new RowChart(facts, "schoolYear", chartWidth * 2, 10);
         new RowChart(facts, "language", chartWidth, 10);
         new RowChart(facts, "sector", chartWidth, 10);
         new RowChart(facts, "gradeLevel", chartWidth, 10);
