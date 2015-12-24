@@ -1,5 +1,5 @@
-school,schoolYear,language,grade0,grade1,grade2,grade3,grade4,grade5,grade6
-Herndon  ES,2015,French,0,0,0,38,31,21,22
+school,schoolYear,language,Kindergarten,1st Grade,2nd Grade,3rd Grade,4th Grade,5th Grade,6th Grade
+Herndon  ES, ,French,0,0,0,38,31,21,22
 Kent Gardens ES,2015,French,0,75,77,73,74,64,64
 Orange Hunt ES,2015,German,0,52,52,39,40,46,41
 Fox Mill ES,2015,Japanese,0,52,47,42,37,32,38
