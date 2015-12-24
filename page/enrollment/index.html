@@ -55,16 +55,18 @@
 
     function setup(error, data, counties) {
 
+        var gradeLevels = ["Kindergarten", "1st Grade", "2nd Grade", "3rd Grade", "4th Grade", "5th Grade", "6th Grade"]
         var records = [];
         data.forEach(function (d) {
             for (i = 0; i < 7; i++) {
-                if (+d["grade" + i] != 0) {
+                var gradeLevel = gradeLevels[i];
+                if (+d[gradeLevel] != 0) {
                     records.push({
                         "school": d.school,
                         "schoolYear": +d.schoolYear,
                         "language": d.language,
-                        "gradeLevel": "grade" + i,
-                        "students": +d["grade" + i]
+                        "gradeLevel": gradeLevel,
+                        "students": +d[gradeLevel]
                     });
                 }
             }
