@@ -16,7 +16,6 @@
 
     <!--<link href='http://dc-js.github.io/dc.js/css/dc.css' rel='stylesheet' type='text/css'>-->
     <link href='../../css/dc.css' rel='stylesheet' type='text/css'>
-      
     <link href="../../css/jquery.gridster.min.css" rel="stylesheet" />
 </head>
 
@@ -33,9 +32,10 @@
             <li id='dc-chart-school' data-row="2" data-col="1" data-sizex="1" data-sizey="2"><h4>School</h4></li>
             <li id='dc-chart-language' data-row="2" data-col="2" data-sizex="1" data-sizey="1"><h4>Language</h4></li>
             <li id='dc-chart-gradeLevel' data-row="3" data-col="2" data-sizex="1" data-sizey="1"><h4>Grade Level</h4></li>
+
+            <li id='dc-chart-map' data-row="1" data-col="3" data-sizex="4" data-sizey="4"><h4>Map</h4></li>
        </ul>
     </div>
-
 
     <script type="text/javascript">
 
@@ -49,10 +49,11 @@
    
     queue()
         .defer(d3.csv, '../../data/enrollment/enrollment.csv')
+        .defer(d3.json, '../../map/dc_counties.json')
         .await(setup);
 
 
-    function setup(error, data) {
+    function setup(error, data, counties) {
 
         var records = [];
         data.forEach(function (d) {
@@ -69,8 +70,8 @@
             }
         });
         
-        var chartWidth = 220,
-            chartHeight = 230,
+        var chartWidth = 190,
+            chartHeight = 190,
             chartMargin = 5;
 
         var gridster;
@@ -83,6 +84,31 @@
                 }
             }).data('gridster');
         });
+
+
+        var projection = makeProjection(counties, chartWidth * 4, chartHeight * 4);
+        var path = d3.geo.path()
+            .projection(projection);
+
+        var svg = d3.select("#dc-chart-map")
+                    .append("svg")
+                    .attr("width", chartWidth * 4)
+                    .attr("height", chartHeight * 4);
+
+        svg.selectAll("path")
+            .data(counties.features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .attr("stroke", "dimgray")
+            .style("fill", function (d) {
+                return "lightgrey";
+            })
+            .style("fill-opacity", function (d) {
+                return d.value ? 0.5 : 1.0;
+            });
+
+
 
         var facts = crossfilter(records);
 
@@ -105,19 +131,7 @@
         .valueAccessor(function (d) {
             return d;
         })
-
-        // 03 dimension, group and pie chart for appropriation type
-        //var appropriationTypeDim = facts.dimension(dc.pluck('appropriationType'));
-        //var appropriationTypeGroupSum =
-        //appropriationTypeDim.group().reduceSum(dc.pluck("amount"));
-        //dc.pieChart("#dc-chart-appropriationType")
-        //.dimension(appropriationTypeDim)
-        //.group(appropriationTypeGroupSum)
-        //.width(200)
-        //.height(200)
-        //.radius(80)
-        //.ordinalColors(appropriationTypeColors)
-
+        
         var schoolYearDim = facts.dimension(dc.pluck('schoolYear'));
         var schoolYearGroupSum = schoolYearDim.group().reduceSum(dc.pluck("students"));
         
@@ -146,6 +160,7 @@
     };
 
     var RowChart = function (facts, attribute, width, height, maxItems) {
+
         var tall = +document.getElementById("dc-chart-" + attribute).getAttribute("data-sizey");
         
         // oh well..
@@ -166,6 +181,30 @@
         .labelOffsetX(5)
         .labelOffsetY(12)
         .xAxis().ticks(4).tickFormat(d3.format(".2s"));
+    }
+
+    // http://stackoverflow.com/questions/14492284/center-a-map-in-d3-given-a-geojson-object
+    function makeProjection(features, width, height) {
+        var projection = d3.geo.albers()
+            .scale(1)
+            .translate([0, 0]);
+
+        // Create a path generator.
+        var path = d3.geo.path()
+            .projection(projection);
+
+        // Compute the bounds of a feature of interest, then derive scale & translate.
+        var scootLeft = 0;
+        var b = path.bounds(features),
+            s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+            t = [((width - s * (b[1][0] + b[0][0])) / 2) - scootLeft, (height - s * (b[1][1] + b[0][1])) / 2];
+
+        // Update the projection to use computed scale & translate.
+        projection
+            .scale(s)
+            .translate(t);
+
+        return projection;
     }
 
     </script>
