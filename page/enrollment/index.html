@@ -4,7 +4,10 @@
 <head>
     <title>Fairfax County Langage Immersion Enrollment</title>
 
-    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <!--<script src="https://d3js.org/d3.v3.min.js"></script>-->
+
+    <script src='../../lib/d3.js' type='text/javascript'></script>
+
     <script src='../../lib/crossfilter.js' type='text/javascript'></script>
 
     <!--<script src='http://dc-js.github.io/dc.js/js/dc.js'></script>-->
@@ -13,6 +16,7 @@
     <script src="http://d3js.org/queue.v1.min.js"></script>
     <script src="../../lib/jquery-1.11.3.min.js"></script>
     <script src="../../lib/jquery.gridster.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.5.0/d3-legend.js"></script>
 
     <!--<link href='http://dc-js.github.io/dc.js/css/dc.css' rel='stylesheet' type='text/css'>-->
     <link href='../../css/dc.css' rel='stylesheet' type='text/css'>
@@ -38,15 +42,7 @@
     </div>
 
     <script type="text/javascript">
-
-    var billion = 1000000000;
-
-    var appropriationTypeColors =
-    ["#74C365", // light green
-    "#006600",  // dark green
-    "#007BA7"]; // blue
-
-   
+           
     queue()
         .defer(d3.csv, '../../data/enrollment/enrollment.csv')
         .defer(d3.json, '../../map/dc_counties.json')
@@ -54,6 +50,8 @@
 
 
     function setup(error, data, counties) {
+        var svg;
+
 
         var gradeLevels = ["Kindergarten", "1st Grade", "2nd Grade", "3rd Grade", "4th Grade", "5th Grade", "6th Grade"]
         var records = [];
@@ -86,16 +84,26 @@
                 }
             }).data('gridster');
         });
+        
+        var languageScale = d3.scale.ordinal()
+            .domain(["French", "German", "Japanese", "Spanish", "Korean"])
+            .range(["rgb(153, 107, 195)", "rgb(56, 106, 197)", "rgb(93, 199, 76)", "rgb(223, 199, 31)", "rgb(234, 118, 47)"]);
 
+        //var mapSvg =
+        drawMap(counties, chartWidth, chartHeight);
+        drawLegend(languageScale);
+        setupCharts(records, chartWidth, chartHeight);
+    };
 
+    function drawMap(counties, chartWidth, chartHeight) {
         var projection = makeProjection(counties, chartWidth * 4, chartHeight * 4);
         var path = d3.geo.path()
             .projection(projection);
 
-        var svg = d3.select("#dc-chart-map")
-                    .append("svg")
-                    .attr("width", chartWidth * 4)
-                    .attr("height", chartHeight * 4);
+        svg = d3.select("#dc-chart-map")
+            .append("svg")
+            .attr("width", chartWidth * 4)
+            .attr("height", chartHeight * 4);
 
         svg.selectAll("path")
             .data(counties.features)
@@ -109,9 +117,28 @@
             .style("fill-opacity", function (d) {
                 return d.value ? 0.5 : 1.0;
             });
+        //return svg;
+    }
 
+    function drawLegend(languageScale) {
 
+        svg.append("g")
+               .attr("class", "legendOrdinal")
+               .attr("transform", "translate(490, 50)");
 
+        var legendOrdinal = d3.legend.color()
+          //d3 symbol creates a path-string, for example
+          //"M0,-8.059274488676564L9.306048591020996,
+          //8.059274488676564 -9.306048591020996,8.059274488676564Z"
+          .shape("path", d3.svg.symbol().type("circle").size(150)())
+          .shapePadding(10)
+          .scale(languageScale);
+
+        svg.select(".legendOrdinal")
+          .call(legendOrdinal);
+    }
+
+    function setupCharts(records, chartWidth, chartHeight) {
         var facts = crossfilter(records);
 
         // 01 group for grand total
@@ -159,7 +186,8 @@
         new RowChart(facts, "gradeLevel", chartWidth, chartHeight, 10);
 
         dc.renderAll();
-    };
+
+    }
 
     var RowChart = function (facts, attribute, width, height, maxItems) {
 
