@@ -44,13 +44,16 @@
     <script type="text/javascript">
            
     queue()
+        .defer(d3.json, '../../map/School_Regions_topo.json')
         .defer(d3.csv, '../../data/enrollment/enrollment.csv')
         .defer(d3.json, '../../map/dc_counties.json')
         .await(setup);
 
 
-    function setup(error, data, counties) {
+    function setup(error, regions, data, counties) {
         var svg;
+
+        var regions = topojson.feature(regions, regions.objects.School_Regions);
 
 
         var gradeLevels = ["Kindergarten", "1st Grade", "2nd Grade", "3rd Grade", "4th Grade", "5th Grade", "6th Grade"]
@@ -90,7 +93,8 @@
             .range(["rgb(153, 107, 195)", "rgb(56, 106, 197)", "rgb(93, 199, 76)", "rgb(223, 199, 31)", "rgb(234, 118, 47)"]);
 
         //var mapSvg =
-        drawMap(counties, chartWidth, chartHeight);
+        drawMap(regions, chartWidth, chartHeight);
+        //drawMap(counties, chartWidth, chartHeight);
         drawLegend(languageScale);
         setupCharts(records, chartWidth, chartHeight);
     };
