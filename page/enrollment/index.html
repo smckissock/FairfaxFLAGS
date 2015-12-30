@@ -42,7 +42,9 @@
     </div>
 
     <script type="text/javascript">
-           
+    var schoolDim;
+    var schoolGroup;
+
     queue()
         .defer(d3.json, '../../map/School_Regions_topo.json')
         .defer(d3.csv, '../../data/enrollment/enrollment.csv')
@@ -52,9 +54,8 @@
 
     function setup(error, regions, data, counties) {
         var svg;
-
+        
         var regions = topojson.feature(regions, regions.objects.School_Regions);
-
 
         var gradeLevels = ["Kindergarten", "1st Grade", "2nd Grade", "3rd Grade", "4th Grade", "5th Grade", "6th Grade"]
         var records = [];
@@ -145,6 +146,9 @@
     function setupCharts(records, chartWidth, chartHeight) {
         var facts = crossfilter(records);
 
+        //var caChart = dc.bubbleOverlay("#dc-chart-map")
+        //    .svg(d3.select("#ca-chart svg"));
+
         // 01 group for grand total
         var totalGroup = facts.groupAll().reduce(
         function (p, v) { // add function
@@ -189,8 +193,31 @@
         new RowChart(facts, "language", chartWidth, chartHeight, 10);
         new RowChart(facts, "gradeLevel", chartWidth, chartHeight, 10);
 
-        dc.renderAll();
+        //caChart.width(chartWidth * 4)
+        //    .height(chartHeight * 4)
+        //    .dimension(schoolDim)
+        //    .group(schoolGroup)
+        //    .radiusValueAccessor(function (p) {
+        //        return 10; //p.value.avgTotalCrimeRate;
+        //    })
+        //    .r(d3.scale.linear().domain([0, 200000]))
+        //    .colors(["#ff7373", "#ff4040", "#ff0000", "#bf3030", "#a60000"])
+        //    .colorDomain([13, 30])
+        //    //.colorAccessor(function (p) {
+        //    //    return p.value.violentCrimeRatio;
+        //    //})
+        //    //.title(function (d) {
+        //    //    return "City: " + d.key
+        //    //            + "\nTotal crime per 100k population: " + numberFormat(d.value.avgTotalCrimeRate)
+        //    //            + "\nViolent crime per 100k population: " + numberFormat(d.value.avgViolentCrimeRate)
+        //    //            + "\nViolent/Total crime ratio: " + numberFormat(d.value.violentCrimeRatio) + "%";
+        //    //})
+        //    .point("Fox Mill", 364, 400)
+        //    //.point("Ottawa", 395.5, 383)
+        //    //.point("Nunavut", 273, 188)
+        //    .debug(false);
 
+        dc.renderAll();
     }
 
     var RowChart = function (facts, attribute, width, height, maxItems) {
@@ -203,18 +230,23 @@
             chartHeight = (height * 2) + 21;
 
         this.dim = facts.dimension(dc.pluck(attribute));
-        dc.rowChart("#dc-chart-" + attribute)
-        .dimension(this.dim)
-        .group(this.dim.group().reduceSum(dc.pluck("students")))
-        .data(function (d) { return d.top(maxItems); })
-        .width(width)
-        .height(chartHeight)
-        .margins({ top: 0, right: 10, bottom: 20, left: 20 })
-        .elasticX(true)
-        .ordinalColors(['#9ecae1']) // light blue
-        .labelOffsetX(5)
-        .labelOffsetY(12)
-        .xAxis().ticks(4).tickFormat(d3.format(".2s"));
+        this.chart = dc.rowChart("#dc-chart-" + attribute)
+            .dimension(this.dim)
+            .group(this.dim.group().reduceSum(dc.pluck("students")))
+            .data(function (d) { return d.top(maxItems); })
+            .width(width)
+            .height(chartHeight)
+            .margins({ top: 0, right: 10, bottom: 20, left: 20 })
+            .elasticX(true)
+            .ordinalColors(['#9ecae1']) // light blue
+            .labelOffsetX(5)
+            .labelOffsetY(12)
+            .xAxis().ticks(4).tickFormat(d3.format(".2s"));
+
+        if (attribute == "school") {
+            schoolDim = this.dim;
+            schoolGroup = this.dim.group().reduceSum(dc.pluck("students"));
+        }
     }
 
     // http://stackoverflow.com/questions/14492284/center-a-map-in-d3-given-a-geojson-object
