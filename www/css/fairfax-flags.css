@@ -11,6 +11,19 @@ body {
     height: 100%;
 }
 
+.flags-title {
+  float: left;
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 26px;
+  line-height: 26px;
+  color: #fff;
+}
+.flags-title:hover,
+.flags-title:focus {
+  text-decoration: none;
+}
+
 body {
     padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
