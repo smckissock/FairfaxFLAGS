@@ -124,11 +124,11 @@
         var map;
 
         queue()
-            .defer(d3.json, '../../../map/School_Regions_topo.json')
-            .defer(d3.json, '../../../map/School_Facilities_topo.json')
-            .defer(d3.json, '../../../map/Supervisor_Districts_topo.json')
-            .defer(d3.csv, '../../../data/districts.csv')
-            .defer(d3.csv, '../../../data/immersionSchools.csv')
+            .defer(d3.json, '../../map/School_Regions_topo.json')
+            .defer(d3.json, '../../map/School_Facilities_topo.json')
+            .defer(d3.json, '../../map/Supervisor_Districts_topo.json')
+            .defer(d3.csv, '../../data/districts.csv')
+            .defer(d3.csv, '../../data/immersionSchools.csv')
             .await(setupMap);
 
         var width = 900;
