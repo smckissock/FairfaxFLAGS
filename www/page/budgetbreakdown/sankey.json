@@ -1,0 +1,19 @@
+﻿{
+    "nodes": [{"name": "Where is my aid?","category": "myAidIsQuestion"},
+{"name": "How much aid am I getting?","category": "myAidIsQuestion"},
+{"name": "Why am I not getting more aid?","category": "myAidIsQuestion"},
+{"name": "Did my payment go through?","category": "lookingAtMyAccount"},
+{"name": "What does T40SFLKOUTSIDE NP SPONSOR1/SP mean?","category": "whatDoesThisMean"},
+{"name": "Why do I owe $190 for housing? ","category": "lookingAtMyAccount"},
+{"name": "What makes up this large fee amount?","category": "whatDoesThisMean"},
+{"name": "How much do I actually owe?","category": "lookingAtMyAccount"},
+{"name": "What's the breakdown of my current balance?","category": "whatDoesThisMean"},
+{"name": "BearFacts says X, MyFinAid says Y. Which is correct?","category": "lookingAtMyAccount"},
+{"name": "Am I registered? Can I enroll in classes?","category": "lookingAtMyAccount"},
+{"name": "I need a Financial Aid verification letter","category": "iAmTryingToDoSomething"},
+{"name": "Stu is expecting cash","category": "expectingActivity"},
+{"name": "Stu has an academic block","category": "blocked"}
+],
+    "links": [{"source": 0,"target": 12,"value": 240},
+{"source": 0,"target": 13,"value": 60}]
+}
