@@ -2,6 +2,10 @@
 
 cd www
 del *.html
+del news\*.html
 cd..
 del *.html
+del news\*.html
+
+pause
 harp compile
