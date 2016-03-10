@@ -85,30 +85,28 @@
 
         <table style="width:100%">
             <tr>
-                <td><strong><span id="districtName">name</span></strong></td>
+                <td><h3><span id="districtName">name</span></h3></td>
+            </tr>
+
+            <!--Supervisor-->
+            <tr> 
+                <td><br>Supervisor:<b><span id="supervisor"></span></b></td>
             </tr>
 
             <tr>
                 <td><img id="supervisorPhoto" src="../../photo/supervisor/070812-0006-imoon-web.JPG" width="100" height="150" /></td>
             </tr>
 
-            <tr> 
-                <td>
-                <br>Supervisor:
-                <b><span id="supervisor"></span></b>
-                </td>
+            <!--School Board-->
+            <tr>
+                <td><br>School Board:<b><span id="schoolBoard"></span></b></td>
             </tr>
 
             <tr>
                 <td><img id="schoolBoardPhoto" src="../../photo/schoolboard/070812-0006-imoon-web.JPG" width="100" height="150" /></td>
             </tr>
 
-            <tr>
-                <td>
-                    <br>School Board:
-                    <b><span id="schoolBoard"></span></b>
-                </td>
-            </tr>
+            
         </table>
 
 
@@ -417,8 +415,24 @@
 
                 districtData.forEach(function (data) {
                     if (district.properties.DISTRICT == data.district) {
+                        // Supervisors in map are out of date
                         district.properties.NAME = data.supervisor;
+                        district.properties.supervisorTitle = data.supervisorTitle;
+                        district.properties.supervisorParty = data.supervisorParty;
+                        district.properties.supervisorEmail = data.supervisorEmail;
+                        district.properties.supervisorTwitter = data.supervisorTwitter;
+                        district.properties.supervisorFacebook = data.supervisorFacebook;
+                        district.properties.SupervisorPhone1 = data.SupervisorPhone1;
+                        district.properties.supervisorWebsite = data.supervisorWebsite;
+
                         district.properties.schoolBoard = data.schoolBoard;
+                        district.properties.schoolBoardTitle = data.schoolBoardTitle;
+                        district.properties.schoolBoardEmail = data.schoolBoardEmail;
+                        district.properties.schoolBoardTwitter = data.schoolBoardTwitter;
+                        district.properties.schoolBoardFacebook = data.schoolBoardFacebook;
+                        district.properties.schoolBoardPhone = data.schoolBoardPhone;
+                        district.properties.schoolBoardWebsite = data.schoolBoardWebsite;
+                        district.properties.schoolBoardCountyWebsite = data.schoolBoardCountyWebsite;
                     }
                 });
             });
