@@ -23,7 +23,7 @@
         }
 
         h3 {
-            font-size: 13px;
+            font-size: 8px;
             margin: 7px;
             font-weight: normal;
         }
@@ -82,41 +82,72 @@
     <h3></h3>
 
     <div id="districttooltip" class="hidden">
-
         <table style="width:100%">
             <tr>
                 <td><h3><span id="districtName">name</span></h3></td>
             </tr>
 
             <!--Supervisor-->
-            <tr> 
-                <td><br>Supervisor:<b><span id="supervisor"></span></b></td>
+            <tr>
+                <td colspan=3><span id="supervisorTitle"></span><span id="supervisor"></span></td>
             </tr>
 
             <tr>
-                <td><img id="supervisorPhoto" src="../../photo/supervisor/070812-0006-imoon-web.JPG" width="100" height="150" /></td>
+                <td rowspan=6><img id="supervisorPhoto" src="../../photo/supervisor/070812-0006-imoon-web.JPG" width="100" height="150" /></td>
             </tr>
-
-            <!--School Board-->
-            <tr>
-                <td><br>School Board:<b><span id="schoolBoard"></span></b></td>
-            </tr>
-
-            <tr>
-                <td><img id="schoolBoardPhoto" src="../../photo/schoolboard/070812-0006-imoon-web.JPG" width="100" height="150" /></td>
-            </tr>
-
             
+            <tr>
+                <td>Email</td>
+                <td><span id="supervisorEmail"></span></td>
+            </tr>
+            <tr>
+                <td>Facebook</td>
+                <td><span id="supervisorFacebook"></span></td>
+            </tr>
+            <tr>
+                <td>Twitter</td>
+                <td><span id="supervisorTwitter"></span></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><span id="supervisorPhone"></span></td>
+            </tr>
+            <tr>
+                <td>Website</td>
+                <td><span id="supervisorWebsite"></span></td>
+            </tr>
+
+            <!--School Board -->
+            <tr>
+                <td colspan="3"><br>School Board:<b><span id="schoolBoard"></span></b></td>
+            </tr>
+            <tr>
+                <td rowspan="6"><img id="schoolBoardPhoto" src="../../photo/schoolboard/070812-0006-imoon-web.JPG" width="100" height="150" /></td>
+            </tr>
+
+            <tr>
+                <td>Email</td>
+                <td><span id="schoolBoardEmail"></span></td>
+            </tr>
+            <tr>
+                <td>Facebook</td>
+                <td><span id="schoolBoardFacebook"></span></td>
+            </tr>
+            <tr>
+                <td>Twitter</td>
+                <td><span id="schoolBoardTwitter"></span></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><span id="schoolBoardPhone"></span></td>
+            </tr>
+            <tr>
+                <td>Website</td>
+                <td><span id="schoolBoardWebsite"></span></td>
+            </tr>
+
+
         </table>
-
-
-        <p>
-            <!--<strong><span id="districtName">name</span></strong>-->
-            <!--<br>Supervisor: <b><span id="supervisor"></span></b>
-            <br>School Board: <b><span id="schoolBoard"></span></b>-->
-            <!--<img id="schoolBoardPhoto" src="../../photo/schoolboard/070812-0006-imoon-web.JPG" width="100" height="150" />
-            <img id="supervisorPhoto" src="../../photo/supervisor/070812-0006-imoon-web.JPG" width="100" height="150" />-->
-        </p>
     </div>
 
     <script type="text/javascript">
@@ -224,7 +255,18 @@
                         .style("font-size", "24px");
 
                     d3.select("#supervisor").text(district.NAME).style("font-size", "12px");
+                    d3.select("#supervisorEmail").text(district.supervisorEmail).style("font-size", "12px");
+                    d3.select("#supervisorFacebook").text(district.supervisorFacebook).style("font-size", "12px");
+                    d3.select("#supervisorTwitter").text(district.supervisorTwitter).style("font-size", "12px");
+                    d3.select("#supervisorPhone").text(district.supervisorPhone).style("font-size", "12px");
+                    d3.select("#supervisorWebsite").text(district.supervisorWebsite).style("font-size", "12px");
+
                     d3.select("#schoolBoard").text(district.schoolBoard).style("font-size", "12px");
+                    d3.select("#schoolBoardEmail").text(district.schoolBoardEmail).style("font-size", "12px");
+                    d3.select("#schoolBoardFacebook").text(district.schoolBoardFacebook).style("font-size", "12px");
+                    d3.select("#schoolBoardTwitter").text(district.schoolBoardTwitter).style("font-size", "12px");
+                    d3.select("#schoolBoardPhone").text(district.schoolBoardPhone).style("font-size", "12px");
+                    d3.select("#schoolBoardWebsite").text(district.schoolBoardWebsite).style("font-size", "12px");
 
                     d3.select("#schoolBoardPhoto").attr("src", function (d) {
                         return "../../photo/school-board/" + district.DISTRICT.replace(" ", "-") + ".jpg";
