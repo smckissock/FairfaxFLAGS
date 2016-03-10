@@ -1,10 +1,38 @@
-district,long,lat,schoolBoard
-MASON,,,Sandy Evans
-SULLY,,,Kathy Smith
-BRADDOCK,,,Megan McLaughlin
-MOUNT VERNON,,,Dan Storck
-LEE,,,Tamara Derenak Kaufax
-SPRINGFIELD,,,Elizabeth Schultz
-DRANESVILLE,,,Jane Strauss
-PROVIDENCE,,,Patty Reed
-HUNTER MILL,,,Pat Hynes
+district,long,lat,schoolBoard,schoolBoardTitle,schoolBoardEmail,schoolBoardTwitter,schoolBoardFacebook,schoolBoardPhone,schoolBoardOfficeHours,schoolBoardWebsite,schoolBoardCountyWebsite,supervisor,supervisorTitle,supervisorParty,SupervisorAddress1,SupervisorAddress2,supervisorEmail,supervisorTwitter,supervisorFacebook,SupervisorPhone1,SupervisorPhone2,supervisorOfficeHours,supervisorWebsite
+Mason,,,Sandy Evans,Vice Chairman,ssevans@fcps.edu,,https://www.facebook.com/sandy.evans.94009?fref=ts,571-423-1083,,http://evansschoolboard.blogspot.com/,http://www.fcps.edu/schlbd/members/mason.shtml,Penelope A. Gross,Vice Chairman,D,"Mason District Governmental Center
+6507 Columbia Pike
+Annandale, VA 22003-2029",,mason@fairfaxcounty.gov,,,703-256-7717,,,www.fairfaxcounty.gov/mason
+Sully,,,Thomas Wilson,District Representative,tawilson1@fcps.edu,,,571-423-1085,,http://www.tomwilsonforschoolboard.com/home.html,http://www.fcps.edu/schlbd/members/sully.shtml,Kathy L. Smith,Supervisor ,D,"Sully District Governmental Center
+4900 Stonecroft Boulevard
+Chantilly, VA 20151-3808",,sully@fairfaxcounty.gov,https://twitter.com/SullySupervisor,"https://www.facebook.com/SullyDistrict/?fref=ts
+https://www.facebook.com/KathySmithSullyDistrict/?fref=ts",703-814-7100,,,www.fairfaxcounty.gov/sully
+Braddock,,,Megan McLaughlin,District Representative,Megan.McLaughlin@fcps.edu,,https://www.facebook.com/megan.o.mclaughlin?fref=ts,571-423-1088,,,http://www.fcps.edu/schlbd/members/braddock.shtml,John C. Cook,Supervisor ,R,"Kings Park Library
+9002 Burke Lake Road
+Burke, VA 22015-1608",,braddock@fairfaxcounty.gov,https://twitter.com/JohnCookVA,https://www.facebook.com/SupervisorCook/?fref=ts,703-425-9300,,,www.fairfaxcounty.gov/braddock
+Mount Vernon,,,Karen Corbett Sanders,District Representative,klcorbettsan@fcps.edu,,https://www.facebook.com/karen.c.sanders.3?fref=ts,571-423-1086,,http://www.karen4schools.com/,http://www.fcps.edu/schlbd/members/mountvernon.shtml,Daniel G. Storck,Supervisor ,D,"Mount Vernon Governmental Center
+2511 Parkers Lane
+Alexandria, VA 22306-2799",,mtvernon@fairfaxcounty.gov,,"https://www.facebook.com/danstorckforsupervisor/?fref=ts
+https://www.facebook.com/dan.storck.3?fref=ts",703-780-7518,,,www.fairfaxcounty.gov/mountvernon
+Lee,,,Tamara Derenak Kaufax,District Representative,tdkaufax@fcps.edu,https://twitter.com/kaufax4schools,https://www.facebook.com/TamaraKaufax?fref=ts,571-423-1081,,http://www.kaufaxforschools.com/,http://www.fcps.edu/schlbd/members/lee.shtml,Jeffrey C. McKay,Supervisor ,D,"Franconia Governmental Center
+6121 Franconia Road
+Alexandria, VA 22310-2508",,leedist@fairfaxcounty.gov,https://twitter.com/JeffreyCMcKay,https://www.facebook.com/Supervisor-Jeff-McKay-276368392490/?fref=ts,703-971-6262,,,www.fairfaxcounty.gov/lee
+Springfield,,,Elizabeth Schultz,District Representative,Elizabeth.Schultz@fcps.edu,https://twitter.com/ThinkSchultz,https://www.facebook.com/ElizabethSchultzRepresentingYou/,571-423-1080,,http://elizabethschultz.org/,http://www.fcps.edu/schlbd/members/springfield.shtml,Pat Herrity,Supervisor ,R,"West Springfield Governmental Center
+6140 Rolling Road
+Springfield, VA 22152-1579","Fairfax County Government Center
+12000 Government Center Parkway, Suite 233
+Fairfax, VA 22035-0001",springfield@fairfaxcounty.gov,https://twitter.com/PatHerrity,https://www.facebook.com/pat.herrity,703-451-8873,703-324-2500,,www.fairfaxcounty.gov/springfield
+Dranesville,,,Jane Strauss,District Representative,Jane.Strauss@fcps.edu,,,571-423-1087,,,http://www.fcps.edu/schlbd/members/dranesville.shtml,John W. Foust,Supervisor ,D,"McLean Governmental Center
+1437 Balls Hill Road
+McLean, VA 22101","Herndon Office
+730 Elden Street
+Herndon, VA 20170-4637",dranesville@fairfaxcounty.gov,https://twitter.com/johnfoustva,https://www.facebook.com/JohnFoustva/?fref=ts,703-356-0551,703-471-5076,,www.fairfaxcounty.gov/dranesville
+Providence,,,Dalia Palchik,District Representative,dapalchik@fcps.edu,https://twitter.com/daliapalchik,https://www.facebook.com/DaliaforSchoolBoard/,571-423-1084,,http://www.daliaforschoolboard.com/,http://www.fcps.edu/schlbd/members/providence.shtml,Linda Q. Smyth,Supervisor ,D,"3001 Vaden Drive
+Fairfax, VA 22031",,provdist@fairfaxcounty.gov,,,703-560-6946,,,www.fairfaxcounty.gov/providence
+Hunter Mill,,,Pat Hynes,Chairman,Pat.Hynes@fcps.edu,https://twitter.com/VotePatHynes,https://www.facebook.com/Pat-Hynes-129926723784393/?fref=nf,571-423-1082,,http://www.hynesforschoolboard.com/,http://www.fcps.edu/schlbd/members/huntermill.shtml,Catherine M. Hudgins,Supervisor ,D,"North County Governmental Center
+1801 Cameron Glen Drive
+Reston, VA 20190",,hntrmill@fairfaxcounty.gov,,https://www.facebook.com/SupervisorCathyHudgins?fref=ts,703-478-0283,,,www.fairfaxcounty.gov/huntermill
+At Large,,,Ryan McElveen,Member At Large,Ryan.McElveen@fcps.edu,https://twitter.com/ryanlmcelveen,https://www.facebook.com/voteryanmcelveen,571-423-1089,,http://www.ryanforschoolboard.com/,http://www.fcps.edu/schlbd/members/at-large2.shtml,Sharon Bulova,"Chairman, Elected At-Large",D,"Government Center
+12000 Government Center Parkway, Suite 530
+Fairfax, VA 22035-0079",,chairman@fairfaxcounty.gov,https://twitter.com/SharonBulova,https://www.facebook.com/SharonBulova/?fref=ts,703-324-2321,,,www.fairfaxcounty.gov/chairman
+At Large,,,Ilryong Moon,Member At Large,ilryong.moon@fcps.edu,https://twitter.com/moon4schools,https://www.facebook.com/ilryong.moon,571-423-1090,,http://www.moon4schools.com/,http://www.fcps.edu/schlbd/members/at-large1.shtml,,,,,,,,,,,,
+At Large,,,Jeanette Hough,Member At Large,jhough1@fcps.edu,https://twitter.com/jeanette4fcps,https://www.facebook.com/jeanettehoughschoolboard/,571-423-1091,,http://www.jeanetteforschoolboard.com/,http://www.fcps.edu/schlbd/members/at-large3.shtml,,,,,,,,,,,,
