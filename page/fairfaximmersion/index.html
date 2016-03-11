@@ -118,67 +118,27 @@
             </tr>
 
             <!--Supervisor-->
-            <tr>
-                <td colspan=2><span class="popuptitle" id="supervisorTitle"></span></td>
-            </tr>
+            <tr><td colspan=2><span class="popuptitle" id="supervisorTitle"></span></td></tr>
+            <tr><td rowspan=6><img id="supervisorPhoto" src="../../photo/supervisor/At-Large.JPG" width="100" height="150" /></td></tr>
 
-            <tr>
-                <td rowspan=6><img id="supervisorPhoto" src="../../photo/supervisor/070812-0006-imoon-web.JPG" width="100" height="150" /></td>
-            </tr>
+            <tr><td><b><span class="popupname" id="supervisorName"></span></b></td></tr>
+            <tr><td><span class="popuptext" id="supervisorEmail"></span></td></tr>
+            <tr><td><span class="popuptext" id="supervisorPhone"></span></td></tr>
+            <tr><td><a class="popuplink" id="supervisorWebsite"></a></td></tr>
+            <tr><td><a id="supervisorFacebook"></a>&nbsp;<a id="supervisorTwitter"></a></td></tr>
 
-            <tr>
-                <td><b><span class="popupname" id="supervisorName"></span></b></td>
-            </tr>
-
-            <tr>
-                <td><span class="popuptext" id="supervisorEmail"></span></td>
-            </tr>
-            <tr>
-                <td><span class="popuptext" id="supervisorPhone"></span></td>
-            </tr>
-
-            <tr>
-                <td><a class="popuplink" id="supervisorWebsite"></a></td>
-            </tr>
-            
-            <tr>
-                <td><a id="supervisorFacebook"></a>&nbsp;<a id="supervisorTwitter"></a></td>
-            </tr>
-
-            <tr>
-                <td colspan=2>&nbsp;</td>
-            </tr>
+            <tr><td colspan=2>&nbsp;</td></tr>
 
             <!--School Board -->
-            <tr>
-                <td colspan=2><span class="popuptitle" id="schoolBoardTitle"></span></td>
-            </tr>
-            <tr>
-                <td rowspan="7"><img id="schoolBoardPhoto" src="../../photo/schoolboard/070812-0006-imoon-web.JPG" width="100" height="150" /></td>
-            </tr>
+            <tr><td colspan=2><span class="popuptitle" id="schoolBoardTitle"></span></td></tr>
+            <tr><td rowspan="7"><img id="schoolBoardPhoto" src="../../photo/schoolboard/hunter-mill.JPG" width="100" height="150" /></td></tr>
 
-            <tr>
-                <td><b><span class="popupname" id="schoolBoardName"></span></b></td>
-            </tr>
-            
-
-            <tr>
-                <td><span class="popuptext" id="schoolBoardEmail"></span></td>
-            </tr>
-            <tr>
-                <td><span class="popuptext" id="schoolBoardPhone"></span></td>
-            </tr>
-
-            <tr>
-                <td><a class="popuplink" id="schoolBoardWebsite"></a></td>
-            </tr>
-            <tr>
-                <td><a class="popuplink" id="schoolBoardCountyWebsite"></a></td>
-            </tr>
-            
-            <tr>
-                <td><a id="schoolBoardFacebook"></a>&nbsp;<a id="schoolBoardTwitter"></a></td>
-            </tr>
+            <tr><td><b><span class="popupname" id="schoolBoardName"></span></b></td></tr>
+            <tr><td><span class="popuptext" id="schoolBoardEmail"></span></td></tr>
+            <tr><td><span class="popuptext" id="schoolBoardPhone"></span></td></tr>
+            <tr><td><a class="popuplink" id="schoolBoardWebsite"></a></td></tr>
+            <tr><td><a class="popuplink" id="schoolBoardCountyWebsite"></a></td></tr>            
+            <tr><td><a id="schoolBoardFacebook"></a>&nbsp;<a id="schoolBoardTwitter"></a></td></tr>
 
         </table>
     </div>
@@ -231,7 +191,7 @@
             function addButton(district, official, service) {
                 var name = official + service;
                 if (district[name] != "")
-                    d3.select("#" + name).html("<a href='" + district[name] + "'><i class='fa fa-" + service.toLowerCase() + "-square fa-2x'></i></a>");
+                    d3.select("#" + name).html("<a target = \"_blank\" href='" + district[name] + "'><i class='fa fa-" + service.toLowerCase() + "-square fa-2x'></i></a>");
                 else
                     d3.select("#" + name).html("");
             }
@@ -317,15 +277,13 @@
                         return "../../photo/school-board/" + district.DISTRICT.replace(" ", "-") + ".jpg";
                     });
 
-                    //d3.select("#supervisor").text(district.NAME + "(" + district.supervisorParty + ")");
                     d3.select("#supervisorTitle").text(district.supervisorTitle);
-                    
                     d3.select("#supervisorName").text(district.NAME + " (" + district.supervisorParty + ")");
 
                     addButton(district, "supervisor", "Facebook");
                     addButton(district, "supervisor", "Twitter");
                                         
-                    d3.select("#supervisorWebsite").html("<a href='http://" + district.supervisorWebsite + "'>County Website</a>"); // added 'http://'
+                    d3.select("#supervisorWebsite").html("<a target = \"_blank\" href='http://" + district.supervisorWebsite + "'>County Website</a>"); // added 'http://'
                     d3.select("#supervisorEmail").text(district.supervisorEmail);
                     d3.select("#supervisorPhone").text(district.supervisorPhone);
 
@@ -333,18 +291,15 @@
                     d3.select("#supervisorPhoto").attr("src", function (d) {
                         return "../../photo/supervisor/" + district.DISTRICT.replace(" ", "-") + ".jpg";
                     });
-                    //d3.select("#schoolBoard").text(district.schoolBoard);
                     d3.select("#schoolBoardTitle").text("School Board " + district.schoolBoardTitle);
-
                     d3.select("#schoolBoardName").text(district.schoolBoard);
-
                     d3.select("#schoolBoardEmail").text(district.schoolBoardEmail);
 
                     addButton(district, "schoolBoard", "Facebook");
                     addButton(district, "schoolBoard", "Twitter");
 
-                    d3.select("#schoolBoardWebsite").html("<a href='" + district.schoolBoardWebsite + "'>Website</a>");
-                    d3.select("#schoolBoardCountyWebsite").html("<a href='" + district.schoolBoardCountyWebsite + "'>County Website</a>");
+                    d3.select("#schoolBoardWebsite").html("<a target = \"_blank\" href='" + district.schoolBoardWebsite + "'>Website</a>");
+                    d3.select("#schoolBoardCountyWebsite").html("<a target = \"_blank\" href='" + district.schoolBoardCountyWebsite + "'>County Website</a>");
                     d3.select("#schoolBoardPhone").text(district.schoolBoardPhone);
                 })
 
