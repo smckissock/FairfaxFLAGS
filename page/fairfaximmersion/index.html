@@ -25,7 +25,7 @@
         }
 
         h2 {
-            font-size: 18px;
+            font-size: 16px;
             margin: 2px;
         }
 
@@ -39,18 +39,25 @@
             background-color: white;
         }
 
+        .popuptitle {
+            color: black;
+            font-size: 14px;
+        }
+        .popupname {            
+            font-size: 12px;
+        }
         .popuptext {
-            color: red;
+            color: black;
             font-size: 12px;
             text-align: center;
         }
-
         .popuplink {
-            color: green;
+            color: black;
             font-size: 12px;
             text-align: center;
         }
         
+        a:link, a:visited {color: navy;}
 
         #districttooltip {
             font-family: Helvetica, Arial, sans-serif;
@@ -112,7 +119,7 @@
 
             <!--Supervisor-->
             <tr>
-                <td colspan=3><span id="supervisorTitle"></span>&nbsp;<span id="supervisor"></span></td>
+                <td colspan=2><span class="popuptitle" id="supervisorTitle"></span></td>
             </tr>
 
             <tr>
@@ -120,54 +127,57 @@
             </tr>
 
             <tr>
-                <td><a id="supervisorFacebook"></a>&nbsp;<a id="supervisorTwitter"></a></td>
-                <td></td>
+                <td><b><span class="popupname" id="supervisorName"></span></b></td>
+            </tr>
+
+            <tr>
+                <td><span class="popuptext" id="supervisorEmail"></span></td>
+            </tr>
+            <tr>
+                <td><span class="popuptext" id="supervisorPhone"></span></td>
             </tr>
 
             <tr>
                 <td><a class="popuplink" id="supervisorWebsite"></a></td>
-                <td></td>
             </tr>
             
             <tr>
-                <td><span class="popuptext" id="supervisorEmail"></span></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><span class="popuptext" id="supervisorPhone"></span></td>
-                <td></td>
+                <td><a id="supervisorFacebook"></a>&nbsp;<a id="supervisorTwitter"></a></td>
             </tr>
 
             <tr>
-                <td colspan=3>&nbsp;</td>
+                <td colspan=2>&nbsp;</td>
             </tr>
 
             <!--School Board -->
             <tr>
-                <td colspan=3><span id="schoolBoardTitle"></span>&nbsp;<span id="schoolBoard"></span></td>
+                <td colspan=2><span class="popuptitle" id="schoolBoardTitle"></span></td>
             </tr>
             <tr>
-                <td rowspan="6"><img id="schoolBoardPhoto" src="../../photo/schoolboard/070812-0006-imoon-web.JPG" width="100" height="150" /></td>
+                <td rowspan="7"><img id="schoolBoardPhoto" src="../../photo/schoolboard/070812-0006-imoon-web.JPG" width="100" height="150" /></td>
             </tr>
-            
+
             <tr>
-                <td><a id="schoolBoardFacebook"></a>&nbsp;<a id="schoolBoardTwitter"></a></td>
-                <td></td>
+                <td><b><span class="popupname" id="schoolBoardName"></span></b></td>
             </tr>
             
+
+            <tr>
+                <td><span class="popuptext" id="schoolBoardEmail"></span></td>
+            </tr>
+            <tr>
+                <td><span class="popuptext" id="schoolBoardPhone"></span></td>
+            </tr>
+
             <tr>
                 <td><a class="popuplink" id="schoolBoardWebsite"></a></td>
-                <td></td>
             </tr>
             <tr>
                 <td><a class="popuplink" id="schoolBoardCountyWebsite"></a></td>
             </tr>
-
+            
             <tr>
-                <td><span class="popuptext" id="schoolBoardEmail"></span></td><td></td>
-            </tr>
-            <tr>
-                <td><span class="popuptext" id="schoolBoardPhone"></span></td><td></td>
+                <td><a id="schoolBoardFacebook"></a>&nbsp;<a id="schoolBoardTwitter"></a></td>
             </tr>
 
         </table>
@@ -307,8 +317,10 @@
                         return "../../photo/school-board/" + district.DISTRICT.replace(" ", "-") + ".jpg";
                     });
 
-                    d3.select("#supervisor").text(district.NAME).style("font-size", "14px");
-                    d3.select("#supervisorTitle").text(district.supervisorTitle).style("font-size", "14px");
+                    //d3.select("#supervisor").text(district.NAME + "(" + district.supervisorParty + ")");
+                    d3.select("#supervisorTitle").text(district.supervisorTitle);
+                    
+                    d3.select("#supervisorName").text(district.NAME + " (" + district.supervisorParty + ")");
 
                     addButton(district, "supervisor", "Facebook");
                     addButton(district, "supervisor", "Twitter");
@@ -321,8 +333,10 @@
                     d3.select("#supervisorPhoto").attr("src", function (d) {
                         return "../../photo/supervisor/" + district.DISTRICT.replace(" ", "-") + ".jpg";
                     });
-                    d3.select("#schoolBoard").text(district.schoolBoard).style("font-size", "14px");
-                    d3.select("#schoolBoardTitle").text("School Board " + district.schoolBoardTitle).style("font-size", "14px");
+                    //d3.select("#schoolBoard").text(district.schoolBoard);
+                    d3.select("#schoolBoardTitle").text("School Board " + district.schoolBoardTitle);
+
+                    d3.select("#schoolBoardName").text(district.schoolBoard);
 
                     d3.select("#schoolBoardEmail").text(district.schoolBoardEmail);
 
