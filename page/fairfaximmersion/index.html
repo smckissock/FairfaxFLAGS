@@ -13,7 +13,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
     <script src='../../lib/tabletop.js' type='text/javascript'></script>
 
-
     <style type="text/css">
         body {
             background-color: white;
@@ -27,7 +26,7 @@
 
         h2 {
             font-size: 18px;
-            margin: 7px;
+            margin: 2px;
         }
 
         h3 {
@@ -38,6 +37,18 @@
 
         svg {
             background-color: white;
+        }
+
+        .popuptext {
+            color: red;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .popuplink {
+            color: green;
+            font-size: 12px;
+            text-align: center;
         }
         
 
@@ -91,7 +102,7 @@
 </head>
 <body>
     <h1>Fairfax Country Language Immersion Schools</h1>
-    <h3>Click on Map to Contact Your Representatives</h3>
+    <h3><em>Click on Map to Contact Your Representatives</em></h3>
 
     <div id="districttooltip" class="hidden">
         <table style="width:100%">
@@ -114,19 +125,18 @@
             </tr>
 
             <tr>
-                <td><a id="supervisorWebsite"></a></td>
+                <td><a class="popuplink" id="supervisorWebsite"></a></td>
                 <td></td>
             </tr>
             
             <tr>
-                <td><span id="supervisorEmail"></span></td>
+                <td><span class="popuptext" id="supervisorEmail"></span></td>
                 <td></td>
             </tr>
             <tr>
-                <td><span id="supervisorPhone"></span></td>
+                <td><span class="popuptext" id="supervisorPhone"></span></td>
                 <td></td>
             </tr>
-           
 
             <tr>
                 <td colspan=3>&nbsp;</td>
@@ -139,29 +149,26 @@
             <tr>
                 <td rowspan="6"><img id="schoolBoardPhoto" src="../../photo/schoolboard/070812-0006-imoon-web.JPG" width="100" height="150" /></td>
             </tr>
-
+            
             <tr>
                 <td><a id="schoolBoardFacebook"></a>&nbsp;<a id="schoolBoardTwitter"></a></td>
                 <td></td>
             </tr>
             
             <tr>
-                <td><a id="schoolBoardWebsite"></a></td>
+                <td><a class="popuplink" id="schoolBoardWebsite"></a></td>
                 <td></td>
             </tr>
             <tr>
-                <td><a id="schoolBoardCountyWebsite"></a></td>
+                <td><a class="popuplink" id="schoolBoardCountyWebsite"></a></td>
             </tr>
 
             <tr>
-                <td><span id="schoolBoardEmail"></span></td><td></td>
+                <td><span class="popuptext" id="schoolBoardEmail"></span></td><td></td>
             </tr>
             <tr>
-                <td><span id="schoolBoardPhone"></span></td><td></td>
+                <td><span class="popuptext" id="schoolBoardPhone"></span></td><td></td>
             </tr>
-            
-            
-
 
         </table>
     </div>
@@ -293,8 +300,13 @@
                     var district = d.properties;
                     d3.select("#districtName")
                         .text(district.DISTRICT + " District")
-                        .style("font-size", "24px");
-                   
+                        //.style("font-size", "24px");
+
+                    // Supervisors         
+                    d3.select("#schoolBoardPhoto").attr("src", function (d) {
+                        return "../../photo/school-board/" + district.DISTRICT.replace(" ", "-") + ".jpg";
+                    });
+
                     d3.select("#supervisor").text(district.NAME).style("font-size", "14px");
                     d3.select("#supervisorTitle").text(district.supervisorTitle).style("font-size", "14px");
 
@@ -302,29 +314,24 @@
                     addButton(district, "supervisor", "Twitter");
                                         
                     d3.select("#supervisorWebsite").html("<a href='http://" + district.supervisorWebsite + "'>County Website</a>"); // added 'http://'
-                    d3.select("#supervisorEmail").text(district.supervisorEmail).style("font-size", "10px");
-                    d3.select("#supervisorPhone").text(district.supervisorPhone1).style("font-size", "10px");
+                    d3.select("#supervisorEmail").text(district.supervisorEmail);
+                    d3.select("#supervisorPhone").text(district.supervisorPhone);
 
                     // School board
+                    d3.select("#supervisorPhoto").attr("src", function (d) {
+                        return "../../photo/supervisor/" + district.DISTRICT.replace(" ", "-") + ".jpg";
+                    });
                     d3.select("#schoolBoard").text(district.schoolBoard).style("font-size", "14px");
                     d3.select("#schoolBoardTitle").text("School Board " + district.schoolBoardTitle).style("font-size", "14px");
 
-                    d3.select("#schoolBoardEmail").text(district.schoolBoardEmail).style("font-size", "10px");
+                    d3.select("#schoolBoardEmail").text(district.schoolBoardEmail);
 
                     addButton(district, "schoolBoard", "Facebook");
                     addButton(district, "schoolBoard", "Twitter");
 
                     d3.select("#schoolBoardWebsite").html("<a href='" + district.schoolBoardWebsite + "'>Website</a>");
                     d3.select("#schoolBoardCountyWebsite").html("<a href='" + district.schoolBoardCountyWebsite + "'>County Website</a>");
-                    d3.select("#schoolBoardPhone").text(district.schoolBoardPhone).style("font-size", "10px");
-
-                    d3.select("#schoolBoardPhoto").attr("src", function (d) {
-                        return "../../photo/school-board/" + district.DISTRICT.replace(" ", "-") + ".jpg";
-                    });
-
-                    d3.select("#supervisorPhoto").attr("src", function (d) {
-                        return "../../photo/supervisor/" + district.DISTRICT.replace(" ", "-") + ".jpg";
-                    });
+                    d3.select("#schoolBoardPhone").text(district.schoolBoardPhone);
                 })
 
             var districtLabels = svg.selectAll(".districtLabel text")
@@ -503,7 +510,7 @@
                         district.properties.supervisorEmail = data.supervisorEmail.trim();
                         district.properties.supervisorTwitter = data.supervisorTwitter.trim();
                         district.properties.supervisorFacebook = data.supervisorFacebook.trim();
-                        district.properties.SupervisorPhone1 = data.SupervisorPhone1.trim();
+                        district.properties.supervisorPhone = data.SupervisorPhone1.trim();
                         district.properties.supervisorWebsite = data.supervisorWebsite.trim();
 
                         district.properties.schoolBoard = data.schoolBoard.trim();
