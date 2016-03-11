@@ -60,6 +60,11 @@
                 display: none;
             }
 
+            #schoolBoardTwitter.hidden {
+                display: none;
+            }
+
+
         .districtLabel {
             font-weight: bolder;
             font-size: 24px;
@@ -206,6 +211,14 @@
 
         function setupMap(error, regions, facilities, districts, districtData, immersionSchoolData) {
 
+            function addButton(district, official, service) {
+                var name = official + service;
+                if (district[name] != "")
+                    d3.select("#" + name).html("<a href='" + district[name] + "'><i class='fa fa-" + service.toLowerCase() + "-square fa-2x'></i></a>");
+                else
+                    d3.select("#" + name).html("");
+            }
+
             console.table(districtData);
 
             var languageScale = d3.scale.ordinal()
@@ -272,7 +285,7 @@
 
                     d3.select("#districttooltip")
                        //.style("left", (d3.event.pageX + 15) + "px")
-                       //.style("top", (d3.event.pageY - 10) + "px")qwqwqwqw
+                       //.style("top", (d3.event.pageY - 10) + "px")
                        .style("left", "570px")
                        .style("top", "50px")
                        .classed("hidden", false);
@@ -285,25 +298,25 @@
                     d3.select("#supervisor").text(district.NAME).style("font-size", "14px");
                     d3.select("#supervisorTitle").text(district.supervisorTitle).style("font-size", "14px");
 
-                    d3.select("#supervisorFacebook").html("<a href='" + district.supervisorFacebook + "'><i class='fa fa-facebook-square fa-2x'></i></a>");
-                    d3.select("#supervisorTwitter").html("<a href='" + district.supervisorTwitter + "'><i class='fa fa-twitter-square fa-2x'></i></a>");
-                    
+                    addButton(district, "supervisor", "Facebook");
+                    addButton(district, "supervisor", "Twitter");
+                                        
                     d3.select("#supervisorWebsite").html("<a href='http://" + district.supervisorWebsite + "'>County Website</a>"); // added 'http://'
-                    d3.select("#supervisorEmail").text(district.supervisorEmail).style("font-size", "12px");
-                    d3.select("#supervisorPhone").text(district.supervisorPhone1).style("font-size", "12px");
+                    d3.select("#supervisorEmail").text(district.supervisorEmail).style("font-size", "10px");
+                    d3.select("#supervisorPhone").text(district.supervisorPhone1).style("font-size", "10px");
 
-
+                    // School board
                     d3.select("#schoolBoard").text(district.schoolBoard).style("font-size", "14px");
                     d3.select("#schoolBoardTitle").text("School Board " + district.schoolBoardTitle).style("font-size", "14px");
 
-                    d3.select("#schoolBoardEmail").text(district.schoolBoardEmail).style("font-size", "12px");
+                    d3.select("#schoolBoardEmail").text(district.schoolBoardEmail).style("font-size", "10px");
 
-                    d3.select("#schoolBoardFacebook").html("<a href='" + district.schoolBoardFacebook + "'><i class='fa fa-facebook-square fa-2x'></i></a>");
-                    d3.select("#schoolBoardTwitter").html("<a href='" + district.schoolBoardTwitter + "'><i class='fa fa-twitter-square fa-2x'></i></a>");
-                 
+                    addButton(district, "schoolBoard", "Facebook");
+                    addButton(district, "schoolBoard", "Twitter");
+
                     d3.select("#schoolBoardWebsite").html("<a href='" + district.schoolBoardWebsite + "'>Website</a>");
                     d3.select("#schoolBoardCountyWebsite").html("<a href='" + district.schoolBoardCountyWebsite + "'>County Website</a>");
-                    d3.select("#schoolBoardPhone").text(district.schoolBoardPhone).style("font-size", "12px");
+                    d3.select("#schoolBoardPhone").text(district.schoolBoardPhone).style("font-size", "10px");
 
                     d3.select("#schoolBoardPhoto").attr("src", function (d) {
                         return "../../photo/school-board/" + district.DISTRICT.replace(" ", "-") + ".jpg";
@@ -311,7 +324,7 @@
 
                     d3.select("#supervisorPhoto").attr("src", function (d) {
                         return "../../photo/supervisor/" + district.DISTRICT.replace(" ", "-") + ".jpg";
-                    }).style("font-size", "8px");
+                    });
                 })
 
             var districtLabels = svg.selectAll(".districtLabel text")
@@ -484,23 +497,23 @@
                 districtData.forEach(function (data) {
                     if (district.properties.DISTRICT == data.district) {
                         // Supervisors in map are out of date
-                        district.properties.NAME = data.supervisor;
-                        district.properties.supervisorTitle = data.supervisorTitle;
-                        district.properties.supervisorParty = data.supervisorParty;
-                        district.properties.supervisorEmail = data.supervisorEmail;
-                        district.properties.supervisorTwitter = data.supervisorTwitter;
-                        district.properties.supervisorFacebook = data.supervisorFacebook;
-                        district.properties.SupervisorPhone1 = data.SupervisorPhone1;
-                        district.properties.supervisorWebsite = data.supervisorWebsite;
+                        district.properties.NAME = data.supervisor.trim();
+                        district.properties.supervisorTitle = data.supervisorTitle.trim();
+                        district.properties.supervisorParty = data.supervisorParty.trim();
+                        district.properties.supervisorEmail = data.supervisorEmail.trim();
+                        district.properties.supervisorTwitter = data.supervisorTwitter.trim();
+                        district.properties.supervisorFacebook = data.supervisorFacebook.trim();
+                        district.properties.SupervisorPhone1 = data.SupervisorPhone1.trim();
+                        district.properties.supervisorWebsite = data.supervisorWebsite.trim();
 
-                        district.properties.schoolBoard = data.schoolBoard;
-                        district.properties.schoolBoardTitle = data.schoolBoardTitle;
-                        district.properties.schoolBoardEmail = data.schoolBoardEmail;
-                        district.properties.schoolBoardTwitter = data.schoolBoardTwitter;
-                        district.properties.schoolBoardFacebook = data.schoolBoardFacebook;
-                        district.properties.schoolBoardPhone = data.schoolBoardPhone;
-                        district.properties.schoolBoardWebsite = data.schoolBoardWebsite;
-                        district.properties.schoolBoardCountyWebsite = data.schoolBoardCountyWebsite;
+                        district.properties.schoolBoard = data.schoolBoard.trim();
+                        district.properties.schoolBoardTitle = data.schoolBoardTitle.trim();
+                        district.properties.schoolBoardEmail = data.schoolBoardEmail.trim();
+                        district.properties.schoolBoardTwitter = data.schoolBoardTwitter.trim();
+                        district.properties.schoolBoardFacebook = data.schoolBoardFacebook.trim();
+                        district.properties.schoolBoardPhone = data.schoolBoardPhone.trim();
+                        district.properties.schoolBoardWebsite = data.schoolBoardWebsite.trim();
+                        district.properties.schoolBoardCountyWebsite = data.schoolBoardCountyWebsite.trim();
                     }
                 });
             });
