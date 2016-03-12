@@ -283,7 +283,9 @@
                     addButton(district, "supervisor", "Twitter");
                                         
                     d3.select("#supervisorWebsite").html("<a target = \"_blank\" href='http://" + district.supervisorWebsite + "'>County Website</a>"); // added 'http://'
-                    d3.select("#supervisorEmail").text(district.supervisorEmail);
+                    
+                    //d3.select("#supervisorEmail").text(district.supervisorEmail);
+                    d3.select("#supervisorEmail").html("<a href=\"mailto:" + district.supervisorEmail + "?Subject=Please%20Fully%20Fund%20Our%20Schools\" target=\"_top\">" + district.supervisorEmail + "</a>");
                     d3.select("#supervisorPhone").text(district.supervisorPhone);
 
                     // School board
@@ -292,7 +294,9 @@
                     
                     d3.select("#schoolBoardTitle").text("School Board " + district.schoolBoardTitle);
                     d3.select("#schoolBoardName").text(district.schoolBoard);
-                    d3.select("#schoolBoardEmail").text(district.schoolBoardEmail);
+
+                    //d3.select("#schoolBoardEmail").text(district.schoolBoardEmail);
+                    d3.select("#schoolBoardEmail").html("<a href=\"mailto:" + district.schoolBoardEmail + "?Subject=Please%20Fully%20Fund%20Language%20Immersion\" target=\"_top\">" + district.schoolBoardEmail + "</a>");
 
                     addButton(district, "schoolBoard", "Facebook");
                     addButton(district, "schoolBoard", "Twitter");
