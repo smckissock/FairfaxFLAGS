@@ -30,17 +30,26 @@ body {
     border-color: #FF0000;
 }
 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    font-size: 16px;
+    /*set the color you want here*/
+    background-color: #FF0000;
+    border-color: #FF0000; 
+}
+
 .flags-title {
   float: left;
-  height: 40px;
-  padding: 15px 15px;
-  font-size: 26px;
+  height: 35px;
+  padding: 15px 5px 10px 15px;
+  font-size: 30px;
   line-height: 26px;
   color: #fff;
 }
-.flags-title:hover,
-.flags-title:focus {
-  text-decoration: none;
+
+.flags-title:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    font-size: 32px;
+    color: #fff;
 }
 
 body {
