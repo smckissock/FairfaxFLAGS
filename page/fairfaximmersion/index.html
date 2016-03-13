@@ -184,6 +184,9 @@
         //var width = 2400;
         //var height = 1600;
 
+        var mapfill = "lightgrey";
+        //var mapfill = "6baed6"; // Light blue
+
         var margin = { top: 4, right: 6, bottom: 16, left: -5 };
 
         function setupMap(error, regions, facilities, districts, districtData, immersionSchoolData) {
@@ -231,80 +234,105 @@
                 .attr('d', path)
                 .attr("stroke", "dimgray")
                 .style("fill", function (d) {
-                    return "lightgrey";
-                })
-                .style("fill-opacity", function (d) {
-                    return d.value ? 0.5 : 1.0;
+                    return mapfill;
                 })
                 .style('fill-opacity', 0.5)
                 .on('mouseover', function (d) {
-                    d3.select(this).style('fill-opacity', .9)
-                        .attr("stroke", "black")
-                        .attr("stroke-width", 2);
-
-                    d3.select("#districttooltip")
-                        //.style("left", (d3.event.pageX + 15) + "px")
-                        //.style("top", (d3.event.pageY - 10) + "px")
-                        .style("left", "560px")
-                        .style("top", "50px");
-                       // .classed("hidden", false);
+                    mapMouseOver(d3.select(this));
                 })
                 .on('mouseout', function (d) {
-                    d3.select(this)
-                        .style('fill-opacity', .5)
-                        .attr("stroke", "dimgray")
-                        .attr("stroke-width", 1);
-
-                    //d3.select("#districttooltip").classed("hidden", true);
+                    mapMouseOut(d3.select(this));
                 })
                 .on('click', function (d) {
-                    console.log(d.properties.DISTRICT);
+                    mapClick(d);
+                });
 
-                    d3.select("#districttooltip")
-                       //.style("left", (d3.event.pageX + 15) + "px")
-                       //.style("top", (d3.event.pageY - 10) + "px")
-                       .style("left", "570px")
-                       .style("top", "50px")
-                       .classed("hidden", false);
+            // Not ready yet..
+            //var atLarge1 = svg.append("rect")
+            //    .attr("x", 350)
+            //    .attr("y", 20)
+            //    .attr("width", 120)
+            //    .attr("height", 30)
+            //    .style("fill", mapfill)
+            //    .style('fill-opacity', 0.5)
+            //    .style("stroke", "dimgrey")
+            //    .on('mouseover', function (d) {
+            //        mapMouseOver(d3.select(this));
+            //        d.style("stroke", "black");
+            //    })
+            //    .on('mouseout', function (d) {
+            //        mapMouseOut(d3.select(this));
+            //    })
+            //    .on('click', function (d) {
+            //        debugger;
+            //        var data = districtData["At Large1"];
+            //        d.properties.DISTRICT = "At Large";
+            //        mapClick(d);
+            //    });
 
-                    var district = d.properties;
-                    d3.select("#districtName")
-                        .text(district.DISTRICT + " District")
-                        //.style("font-size", "24px");
+            svg.append("text")
+                .attr("transform", "translate(410, 43)")
+                .attr("class", "districtLabel")
+                .text("At Large");
 
-                    // Supervisors     
-                    d3.select("#supervisorPhotoLink")
-                        .html("<a target = \"_blank\" href='http://" + district.supervisorWebsite + "'><img src=\"../../photo/supervisor/" + district.DISTRICT.replace(" ", "-") + ".jpg\" width=\"100\" height=\"150\" />");
+            function mapMouseOver(d) {
+                d.style('fill-opacity', .9)
+                      .attr("stroke", "black")
+                      .attr("stroke-width", 2);
+            }
 
-                    d3.select("#supervisorTitle").text(district.supervisorTitle);
-                    d3.select("#supervisorName").text(district.NAME + " (" + district.supervisorParty + ")");
+            function mapMouseOut(d) {
+                d.style('fill-opacity', .5)
+                    .attr("stroke", "dimgray")
+                    .attr("stroke-width", 1);
+            }
 
-                    addButton(district, "supervisor", "Facebook");
-                    addButton(district, "supervisor", "Twitter");
-                                        
-                    d3.select("#supervisorWebsite").html("<a target = \"_blank\" href='http://" + district.supervisorWebsite + "'>County Website</a>"); // added 'http://'
-                    
-                    //d3.select("#supervisorEmail").text(district.supervisorEmail);
-                    d3.select("#supervisorEmail").html("<a href=\"mailto:" + district.supervisorEmail + "?Subject=Please%20Fully%20Fund%20Our%20Schools\" target=\"_top\">" + district.supervisorEmail + "</a>");
-                    d3.select("#supervisorPhone").text(district.supervisorPhone);
+            function mapClick(d) {
+                console.log("NEW " + d.properties.DISTRICT);
 
-                    // School board
-                    d3.select("#schoolBoardPhotoLink")
-                        .html("<a target = \"_blank\" href='" + district.schoolBoardWebsite + "'><img src=\"../../photo/school-board/" + district.DISTRICT.replace(" ", "-") + ".jpg\" width=\"100\" height=\"150\" />");
-                    
-                    d3.select("#schoolBoardTitle").text("School Board " + district.schoolBoardTitle);
-                    d3.select("#schoolBoardName").text(district.schoolBoard);
+                d3.select("#districttooltip")
+                   .style("left", "570px")
+                   .style("top", "50px")
+                   .classed("hidden", false);
 
-                    //d3.select("#schoolBoardEmail").text(district.schoolBoardEmail);
-                    d3.select("#schoolBoardEmail").html("<a href=\"mailto:" + district.schoolBoardEmail + "?Subject=Please%20Fully%20Fund%20Language%20Immersion\" target=\"_top\">" + district.schoolBoardEmail + "</a>");
+                var district = d.properties;
+                d3.select("#districtName")
+                    .text(district.DISTRICT + " District")
 
-                    addButton(district, "schoolBoard", "Facebook");
-                    addButton(district, "schoolBoard", "Twitter");
+                // Supervisors     
+                d3.select("#supervisorPhotoLink")
+                    .html("<a target = \"_blank\" href='http://" + district.supervisorWebsite + "'><img src=\"../../photo/supervisor/" + district.DISTRICT.replace(" ", "-") + ".jpg\" width=\"100\" height=\"150\" />");
 
-                    d3.select("#schoolBoardWebsite").html("<a target = \"_blank\" href='" + district.schoolBoardWebsite + "'>Website</a>");
-                    d3.select("#schoolBoardCountyWebsite").html("<a target = \"_blank\" href='" + district.schoolBoardCountyWebsite + "'>County Website</a>");
-                    d3.select("#schoolBoardPhone").text(district.schoolBoardPhone);
-                })
+                d3.select("#supervisorTitle").text(district.supervisorTitle);
+                d3.select("#supervisorName").text(district.NAME + " (" + district.supervisorParty + ")");
+
+                addButton(district, "supervisor", "Facebook");
+                addButton(district, "supervisor", "Twitter");
+
+                d3.select("#supervisorWebsite").html("<a target = \"_blank\" href='http://" + district.supervisorWebsite + "'>County Website</a>"); // added 'http://'
+
+                //d3.select("#supervisorEmail").text(district.supervisorEmail);
+                d3.select("#supervisorEmail").html("<a href=\"mailto:" + district.supervisorEmail + "?Subject=Please%20Fully%20Fund%20Our%20Schools\" target=\"_top\">" + district.supervisorEmail + "</a>");
+                d3.select("#supervisorPhone").text(district.supervisorPhone);
+
+                // School board
+                d3.select("#schoolBoardPhotoLink")
+                    .html("<a target = \"_blank\" href='" + district.schoolBoardWebsite + "'><img src=\"../../photo/school-board/" + district.DISTRICT.replace(" ", "-") + ".jpg\" width=\"100\" height=\"150\" />");
+
+                d3.select("#schoolBoardTitle").text("School Board " + district.schoolBoardTitle);
+                d3.select("#schoolBoardName").text(district.schoolBoard);
+
+                //d3.select("#schoolBoardEmail").text(district.schoolBoardEmail);
+                d3.select("#schoolBoardEmail").html("<a href=\"mailto:" + district.schoolBoardEmail + "?Subject=Please%20Fully%20Fund%20Language%20Immersion\" target=\"_top\">" + district.schoolBoardEmail + "</a>");
+
+                addButton(district, "schoolBoard", "Facebook");
+                addButton(district, "schoolBoard", "Twitter");
+
+                d3.select("#schoolBoardWebsite").html("<a target = \"_blank\" href='" + district.schoolBoardWebsite + "'>Website</a>");
+                d3.select("#schoolBoardCountyWebsite").html("<a target = \"_blank\" href='" + district.schoolBoardCountyWebsite + "'>County Website</a>");
+                d3.select("#schoolBoardPhone").text(district.schoolBoardPhone);
+            }
+
 
             var districtLabels = svg.selectAll(".districtLabel text")
                 .data(districts.features)
