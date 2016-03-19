@@ -164,50 +164,79 @@
     <div id="atlargetooltip" class="hidden">
         <table style="width:100%">
             <tr>
-                <td colspan="2"><h2>At Large Officials</h2></td>
+                <td colspan="3"><h2>At Large (Countywide) Officials</h2></td>
+                <td align="right"><a href="#" id="closeAtLarge"><i class='fa fa-close'></i></a>&nbsp;&nbsp;</td>
             </tr>
 
-            <!--Supervisor-->
+            <!-- Top Pair -->
             <tr>
-                <td colspan=2><span class="popuptitle" id="supervisorTitle"></span></td>
+                <td colspan=2><span class="popuptitle" id="supervisorAtLargeTitle"></span></td>
+                <td colspan=2><span class="popuptitle" id="schoolBoardAtLarge1Title"></span></td>
             </tr>
-            
             <tr>
-                <td rowspan=6>OK1<a id="atLargeSupervisorPhotoLink"></a></td>
+                <td rowspan=6><a id="supervisorAtLargePhotoLink"></a></td>
+                <td><b><span class="popupname" id="supervisorAtLargeName"></span></b></td>
+                <td rowspan=6><a id="schoolBoardAtLarge1PhotoLink"></a></td>
+                <td><b><span class="popupname" id="schoolBoardAtLarge1Name"></span></b></td>
+            </tr>
+            <tr>
+                <td><span class="popuptext" id="supervisorAtLargeEmail"></span></td>
+                <td><span class="popuptext" id="SchoolBoardAtLarge1Email"></span></td>
+            </tr>
+            <tr>
+                <td><span class="popuptext" id="supervisorAtLargePhone"></span></td>
+                <td><span class="popuptext" id="SchoolBoardAtLarge1Phone"></span></td>
+            </tr>
+            <tr>
+                <td><span class="popuptext" id="supervisorAtLargeCountyWebsite"></span></td>
+                <td><span class="popuptext" id="SchoolBoardAtLarge1CountyWebsite"></span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><span class="popuptext" id="SchoolBoardAtLarge1Website"></span></td>
+            </tr>
+            <tr>
+                <td><a id="SupervisorAtLargeFacebook"></a>&nbsp;<a id="SupervisorAtLargeTwitter"></a></td>
+                <td><a id="schoolBoardAtLarge1Facebook"></a>&nbsp;<a id="schoolBoardAtLarge1Twitter"></a></td>
             </tr>
 
+            <!-- Bottom Pair -->
             <tr>
-                <td><b>OK2<span class="popupname" id="supervisorName"></span></b></td>
+                <td colspan=4></td>
             </tr>
-            
-            <!--<tr>
-                <td><span class="popuptext" id="supervisorEmail"></span></td>
-            </tr>
-            
             <tr>
-                <td><span class="popuptext" id="supervisorPhone"></span></td>
+                <td colspan=4></td>
             </tr>
-
             <tr>
-                <td><a class="popuplink" id="supervisorWebsite"></a></td>
+                <td colspan=2><span class="popuptitle" id="schoolBoardAtLarge2Title"></span></td>
+                <td colspan=2><span class="popuptitle" id="schoolBoardAtLarge3Title"></span></td>
             </tr>
-            
             <tr>
-                <td><a id="supervisorFacebook"></a>&nbsp;<a id="supervisorTwitter"></a></td>
+                <td rowspan=6><a id="schoolBoardAtLarge2PhotoLink"></a></td>
+                <td><b><span class="popupname" id="schoolBoardAtLarge2Name"></span></b></td>
+                <td rowspan=6><a id="schoolBoardAtLarge3PhotoLink"></a></td>
+                <td><b><span class="popupname" id="schoolBoardAtLarge3Name"></span></b></td>
             </tr>
-
-            <tr><td colspan=2>&nbsp;</td></tr>
-
-            School Board 
-            <tr><td colspan=2><span class="popuptitle" id="schoolBoardTitle"></span></td></tr>
-            <tr><td rowspan=7><a id="schoolBoardPhotoLink"></a></td></tr>
-
-            <tr><td><b><span class="popupname" id="schoolBoardName"></span></b></td></tr>
-            <tr><td><span class="popuptext" id="schoolBoardEmail"></span></td></tr>
-            <tr><td><span class="popuptext" id="schoolBoardPhone"></span></td></tr>
-            <tr><td><a class="popuplink" id="schoolBoardWebsite"></a></td></tr>
-            <tr><td><a class="popuplink" id="schoolBoardCountyWebsite"></a></td></tr>
-            <tr><td><a id="schoolBoardFacebook"></a>&nbsp;<a id="schoolBoardTwitter"></a></td></tr>-->
+            <tr>
+                <td><span class="popuptext" id="SchoolBoardAtLarge2Email"></span></td>
+                <td><span class="popuptext" id="SchoolBoardAtLarge3Email"></span></td>
+            </tr>
+            <tr>
+                <td><span class="popuptext" id="SchoolBoardAtLarge2Phone"></span></td>
+                <td><span class="popuptext" id="SchoolBoardAtLarge3Phone"></span></td>
+            </tr>
+            <tr>
+                <td><span class="popuptext" id="SchoolBoardAtLarge2CountyWebsite"></span></td>
+                <td><span class="popuptext" id="SchoolBoardAtLarge3CountyWebsite"></span></td>
+            </tr>
+            <tr>
+                <td><span class="popuptext" id="SchoolBoardAtLarge2Website"></span></td>
+                <td><span class="popuptext" id="SchoolBoardAtLarge3Website"></span></td>
+            </tr>
+            <tr>
+                <td><a id="schoolBoardAtLarge2Facebook"></a>&nbsp;<a id="schoolBoardAtLarge2Twitter"></a></td>
+                <td><a id="schoolBoardAtLarge3Facebook"></a>&nbsp;<a id="schoolBoardAtLarge3Twitter"></a></td>
+            </tr>
 
         </table>
     </div>
@@ -215,30 +244,7 @@
     <script type="text/javascript">
         var svg;
         var map;
-        
-        // Flakey google sheets!  
-        //var officialsUrl = "d/1mrrHyQLXNcms4G3qVrJmjLlxYhrf5Om8AJzw4bvsu_I/pubhtml";
-        //var officialsUrl = "d/12Tb0p61A_AmSsjdu8eUz4Py6fJy5NipCG1rVVpKBwmg/pubhtml";
-        
-        //(function init() {
-        //    Tabletop.init({
-        //        key: officialsUrl,
-        //        callback: loadData,
-        //        simpleSheet: true
-        //    })
-        //})();
-
-        //function loadData(data, tabletop) {
-        //    console.table(data);
-        //    queue()
-        //        .defer(d3.json, '../../map/School_Regions_topo.json')
-        //        .defer(d3.json, '../../map/School_Facilities_topo.json')
-        //        .defer(d3.json, '../../map/Supervisor_Districts_topo.json')
-        //        .defer(d3.csv, '../../data/districts.csv')
-        //        .defer(d3.csv, '../../data/immersionSchools.csv')
-        //        .await(setupMap);
-        //}
-
+      
        queue()
             .defer(d3.json, '../../map/School_Regions_topo.json')
             .defer(d3.json, '../../map/School_Facilities_topo.json')
@@ -250,8 +256,6 @@
 
         var width = 900;
         var height = 800;
-        //var width = 2400;
-        //var height = 1600;
 
         var mapfill = "lightgrey";
         //var mapfill = "6baed6"; // Light blue
@@ -260,10 +264,13 @@
 
         function setupMap(error, regions, facilities, districts, districtData, immersionSchoolData) {
 
-            function addButton(district, official, service) {
+            function addButton(district, official, service, atLarge) {
                 var name = official + service;
+                if (!atLarge)
+                    atLarge = "";
+                var id = official + atLarge + service;
                 if (district[name] != "")
-                    d3.select("#" + name).html("<a target = \"_blank\" href='" + district[name] + "'><i class='fa fa-" + service.toLowerCase() + "-square fa-2x'></i></a>");
+                    d3.select("#" + id).html("<a target = \"_blank\" href='" + district[name] + "'><i class='fa fa-" + service.toLowerCase() + "-square fa-2x'></i></a>");
                 else
                     d3.select("#" + name).html("");
             }
@@ -317,31 +324,29 @@
                     mapClick(d);
                 });
 
-            // Not ready yet..
             var atLarge1 = svg.append("rect")
                 .attr("x", 350)
                 .attr("y", 20)
                 .attr("width", 120)
-                .attr("height", 30)
+                .attr("height", 36)
                 .style("fill", mapfill)
                 .style('fill-opacity', 0.5)
                 .style("stroke", "dimgrey")
                 .on('mouseover', function (d) {
                     mapMouseOver(d3.select(this));
-                    d.style("stroke", "black");
+                    //d.style("stroke", "black");
                 })
                 .on('mouseout', function (d) {
                     mapMouseOut(d3.select(this));
                 })
                 .on('click', function (d) {
-                    debugger;
                     var data = districtData["At Large1"];
                     d.properties.DISTRICT = "At Large";
                     atLargeClick(d);
                 });
 
             svg.append("text")
-                .attr("transform", "translate(410, 43)")
+                .attr("transform", "translate(410, 46)")
                 .attr("class", "districtLabel")
                 .text("At Large");
 
@@ -358,36 +363,66 @@
             }
 
             function atLargeClick() {
-                debugger;
                 d3.select("#atlargetooltip")
-                   .style("left", "300px")
-                   .style("top", "50px")
-                   .classed("hidden", false);
+                    .style("left", "300px")
+                    .style("top", "50px")
+                    .classed("hidden", false);
+                d3.select("#districttooltip")
+                    .classed("hidden", true);
             }
 
             function atLargeSetup(districtData) {
-                debugger;
+
+                function bindSchoolBoard(record, name) {
+                    d3.select("#schoolBoard" + name + "Title").text("School Board " + record.schoolBoardTitle);
+                    d3.select("#schoolBoard" + name + "PhotoLink")
+                        .html("<a target = \"_blank\" href='" + record.schoolBoardWebsite + "'><img src=\"../../photo/school-board/At-Large-" + name.slice(-1) + ".jpg\" width=\"100\" height=\"150\" />");
+                    d3.select("#schoolBoard" + name + "Name").text(record.schoolBoard);
+                    d3.select("#schoolBoard" + name + "Email").html("<a href=\"mailto:" + record.schoolBoardEmail + "?Subject=Please%20Fully%20Fund%20Language%20Immersion\" target=\"_top\">" + record.schoolBoardEmail + "</a>");
+                    d3.select("#schoolBoard" + name + "Phone").text(record.schoolBoardPhone);
+                    d3.select("#schoolBoard" + name + "CountyWebsite").html("<a target = \"_blank\" href='" + record.schoolBoardCountyWebsite + "'>County Website</a>");
+                    d3.select("#schoolBoard" + name + "Website").html("<a target = \"_blank\" href='" + record.schoolBoardWebsite + "'> Website</a>");
+
+                    addButton(record, "schoolBoard", "Facebook", name);
+                    addButton(record, "schoolBoard", "Twitter", name);
+                }
 
                 var atLarge1 = _.find(districtData, function (d) { return d['district'] === 'At Large1'; })
                 var atLarge2 = _.find(districtData, function (d) { return d['district'] === 'At Large2'; })
                 var atLarge3 = _.find(districtData, function (d) { return d['district'] === 'At Large3'; })
 
-                console.log(atLarge1.supervisor);
-                console.log(atLarge1.schoolBoard);
-                console.log(atLarge2.schoolBoard);
-                console.log(atLarge3.schoolBoard);
+                d3.select("#supervisorAtLargeTitle").text("BOS " + atLarge1.supervisorTitle);
 
-                //d3.select("#atLargeSupervisorPhotoLink")
-                //  .html("<a target = \"_blank\" href='http://" + district.supervisorWebsite + "'><img src=\"../../photo/supervisor/" + district.DISTRICT.replace(" ", "-") + ".jpg\" width=\"100\" height=\"150\" />");
+                d3.select("#supervisorAtLargePhotoLink")
+                    .html("<a target = \"_blank\" href='http://" + atLarge1.supervisorWebsite + "'><img src=\"../../photo/supervisor/At-Large.jpg\" width=\"100\" height=\"150\" />");
+                d3.select("#supervisorAtLargeName").text(atLarge1.supervisor);
+                d3.select("#supervisorAtLargeEmail").html("<a href=\"mailto:" + atLarge1.supervisorEmail + "?Subject=Please%20Fully%20Fund%20Our%20Schools\" target=\"_top\">" + atLarge1.supervisorEmail + "</a>");
+                d3.select("#supervisorAtLargePhone").text(atLarge1.SupervisorPhone1);
+                d3.select("#supervisorAtLargeCountyWebsite").html("<a target = \"_blank\" href='http://" + atLarge1.supervisorWebsite + "'>County Website</a>");
+                addButton(atLarge1, "supervisor", "Facebook", "AtLarge");
+                addButton(atLarge1, "supervisor", "Twitter", "AtLarge");
+               
+                bindSchoolBoard(atLarge1, "AtLarge1");
+                bindSchoolBoard(atLarge2, "AtLarge2");
+                bindSchoolBoard(atLarge3, "AtLarge3");
+
+                d3.select("#closeAtLarge")
+                    .on('click', function (d) {
+                        d3.select("#atlargetooltip")
+                            .classed("hidden", true);
+                });
             }
 
-            function mapClick(d) {
-                console.log("NEW " + d.properties.DISTRICT);
 
+            function mapClick(d) {
+                
                 d3.select("#districttooltip")
                    .style("left", "570px")
                    .style("top", "50px")
                    .classed("hidden", false);
+
+                d3.select("#atlargetooltip")
+                    .classed("hidden", true);
 
                 var district = d.properties;
                 d3.select("#districtName")
