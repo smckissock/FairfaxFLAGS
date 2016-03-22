@@ -60,6 +60,15 @@ body {
     opacity: 0.8;
 }
 
+
+ul {
+text-align: left;
+}
+
+label {
+color: #000000;
+}
+
 /* Home Page Carousel */
 
 header.carousel {
