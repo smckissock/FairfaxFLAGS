@@ -325,10 +325,10 @@
                 });
 
             var atLarge1 = svg.append("rect")
-                .attr("x", 350)
-                .attr("y", 20)
-                .attr("width", 120)
-                .attr("height", 36)
+                .attr("x", 346)
+                .attr("y", 30)
+                .attr("width", 168)
+                .attr("height", 69)
                 .style("fill", mapfill)
                 .style('fill-opacity', 0.5)
                 .style("stroke", "dimgrey")
@@ -346,9 +346,14 @@
                 });
 
             svg.append("text")
-                .attr("transform", "translate(410, 46)")
+                .attr("transform", "translate(430, 56)")
                 .attr("class", "districtLabel")
                 .text("At Large");
+
+            svg.append("text")
+                .attr("transform", "translate(430, 84)")
+                .attr("class", "districtLabel")
+                .text("(county-wide)");
 
             function mapMouseOver(d) {
                 d.style('fill-opacity', .9)
