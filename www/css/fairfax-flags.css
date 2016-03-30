@@ -12,8 +12,8 @@ body {
 }
 
 .navbar-inverse {
-    background-color: #FF0000;
-    border-color: #FF0000;
+    background-color: #E03333;
+    border-color: #E03333;
 }
 
 .navbar-inverse .navbar-nav>li>a {
@@ -26,16 +26,16 @@ body {
 
 .btn-primary {
     color: #fff;
-    background-color: #FF0000;
-    border-color: #FF0000;
+    background-color: #E03333;
+    border-color: #E03333;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     color: #fff;
     font-size: 16px;
     /*set the color you want here*/
-    background-color: #FF0000;
-    border-color: #FF0000; 
+    background-color: #E03333;
+    border-color: #E03333; 
 }
 
 .flags-title {
