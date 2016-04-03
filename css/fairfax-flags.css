@@ -16,6 +16,12 @@ body {
     border-color: #E03333;
 }
 
+.navbar-brand {
+    color: #FFFFFF !important;;
+}
+
+
+
 .navbar-inverse .navbar-nav>li>a {
     color: #FFFFFF;
 }
